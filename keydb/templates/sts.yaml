@@ -1,0 +1,96 @@
+{{- $context := . }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "keydb.fullname" . }}
+  labels:
+{{ include "keydb.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.nodes }}
+  serviceName: {{ template "keydb.fullname" . }}
+  selector:
+    matchLabels:
+{{ include "keydb.selectorLabels" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{ include "keydb.labels" . | indent 8 }}
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - {{ template "keydb.name" . }}
+                - key: app.kubernetes.io/instance
+                  operator: In
+                  values:
+                  - {{ .Release.Name }}
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: keydb
+        image: {{ .Values.image }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        volumeMounts:
+        - name: keydb-data
+          mountPath: /data
+        ports:
+        - name: keydb
+          containerPort: 6379
+          protocol: TCP
+        livenessProbe:
+          tcpSocket:
+            port: keydb
+        readinessProbe:
+          tcpSocket:
+            port: keydb
+        command:
+        - keydb-server
+        args:
+        - /etc/keydb/redis.conf
+        - --active-replica yes
+        - --bind 0.0.0.0
+        - --multi-master yes
+        - --port 6379
+        - --protected-mode no
+        - --server-threads {{ .Values.threads | int }}
+{{ range $node := until (.Values.nodes | int) }}
+        - --replicaof {{ template "keydb.fullname" $context }}-{{ $node }}.{{ template "keydb.fullname" $context }}.{{ $context.Release.Namespace }}.svc.cluster.local 6379
+{{ end }}
+{{ if .Values.password }}
+        - --masterauth {{ .Values.password }}
+        - --requirepass {{ .Values.password }}
+{{ end }}
+{{ if not .Values.persistentVolume.enabled }}
+      volumes:
+      - name: storage-volume
+        emptyDir: {}
+{{ end }}
+{{ if .Values.persistentVolume.enabled }}
+  volumeClaimTemplates:
+  - metadata:
+      name: keydb-data
+      annotations:
+{{ if .Values.persistentVolume.annotations }}
+{{ toYaml .Values.persistentVolume.annotations | indent 8 }}
+{{ end }}
+      labels:
+    spec:
+      accessModes:
+{{ toYaml .Values.persistentVolume.accessModes | indent 8 }}
+      resources:
+        requests:
+          storage: {{ .Values.persistentVolume.size }}
+{{ if .Values.persistentVolume.storageClass }}
+{{ if (eq "-" .Values.persistentVolume.storageClass) }}
+      storageClassName: ""
+{{ else }}
+      storageClassName: {{ .Values.persistentVolume.storageClass }}
+{{ end }}
+{{ end }}
+{{ end }}

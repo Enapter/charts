@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "keydb.fullname" . }}
+  labels:
+{{ include "keydb.labels" . | indent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+  - name: server
+    port: {{ .Values.port | int }}
+    protocol: TCP
+    targetPort: keydb
+  selector:
+{{ include "keydb.selectorLabels" . | indent 4 }}

@@ -1,0 +1,19 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image: eqalpha/keydb:x86_64_v5.3.0
+imagePullPolicy: IfNotPresent
+
+nodes: 3
+
+password: ""
+
+port: 6379
+
+persistentVolume:
+  enabled: false
+  accessModes:
+  - ReadWriteOnce
+  size: 1Gi
+
+threads: 2
