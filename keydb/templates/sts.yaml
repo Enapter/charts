@@ -54,6 +54,7 @@ spec:
         args:
         - /etc/keydb/redis.conf
         - --active-replica yes
+        - --appendonly {{ .Values.appendonly }}
         - --bind 0.0.0.0
         - --multi-master yes
         - --port 6379

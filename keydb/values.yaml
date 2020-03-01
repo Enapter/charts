@@ -10,10 +10,12 @@ password: ""
 
 port: 6379
 
+threads: 2
+
+appendonly: "no"
+
 persistentVolume:
   enabled: false
   accessModes:
   - ReadWriteOnce
   size: 1Gi
-
-threads: 2
