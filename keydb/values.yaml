@@ -1,7 +1,7 @@
 nameOverride: ""
 fullnameOverride: ""
 
-image: eqalpha/keydb:x86_64_v5.3.0
+image: eqalpha/keydb:x86_64_v5.3.2
 imagePullPolicy: IfNotPresent
 
 nodes: 3
@@ -15,7 +15,7 @@ threads: 2
 appendonly: "no"
 
 persistentVolume:
-  enabled: false
+  enabled: true
   accessModes:
   - ReadWriteOnce
   size: 1Gi
