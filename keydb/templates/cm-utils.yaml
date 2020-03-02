@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "keydb.fullname" . }}-utils
+  labels:
+{{ include "keydb.labels" . | indent 4 }}
+data:
+  server.sh: |
+    #!/bin/bash
+    port="6379"
+    replicas=()
+    for node in {0..{{ (sub (.Values.nodes | int) 1) }}}; do
+      if [ "$(hostname)" != "{{ template "keydb.fullname" . }}-${node}" ]; then
+          replicas+=(--replicaof {{ template "keydb.fullname" . }}-${node}.{{ template "keydb.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local "$port")
+      fi
+    done
+    keydb-server /etc/keydb/redis.conf \
+        --appendonly {{ .Values.appendonly }} \
+        --bind 0.0.0.0 \
+        --port "$port" \
+        --protected-mode no \
+        --server-threads {{ .Values.threads | int }} \
+        "${replicas[@]}" \
+{{- if .Values.password }}
+        --masterauth {{ .Values.password }} \
+        --requirepass {{ .Values.password }} \
+{{- end }}
+        --active-replica yes \
+        --multi-master yes

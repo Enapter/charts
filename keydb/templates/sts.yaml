@@ -1,4 +1,3 @@
-{{- $context := . }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -13,6 +12,8 @@ spec:
 {{ include "keydb.selectorLabels" . | indent 6 }}
   template:
     metadata:
+      annotations:
+        checksum/cm-utils: {{ include (print $.Template.BasePath "/cm-utils.yaml") . | sha256sum }}
       labels:
 {{ include "keydb.labels" . | indent 8 }}
     spec:
@@ -39,6 +40,9 @@ spec:
         volumeMounts:
         - name: keydb-data
           mountPath: /data
+        - name: utils
+          mountPath: /utils
+          readOnly: true
         ports:
         - name: keydb
           containerPort: 6379
@@ -50,36 +54,27 @@ spec:
           tcpSocket:
             port: keydb
         command:
-        - keydb-server
-        args:
-        - /etc/keydb/redis.conf
-        - --active-replica yes
-        - --appendonly {{ .Values.appendonly }}
-        - --bind 0.0.0.0
-        - --multi-master yes
-        - --port 6379
-        - --protected-mode no
-        - --server-threads {{ .Values.threads | int }}
-{{ range $node := until (.Values.nodes | int) }}
-        - --replicaof {{ template "keydb.fullname" $context }}-{{ $node }}.{{ template "keydb.fullname" $context }}.{{ $context.Release.Namespace }}.svc.cluster.local 6379
-{{ end }}
-{{ if .Values.password }}
-        - --masterauth {{ .Values.password }}
-        - --requirepass {{ .Values.password }}
-{{ end }}
-{{ if not .Values.persistentVolume.enabled }}
+        - /utils/server.sh
       volumes:
-      - name: storage-volume
+      - name: utils
+        configMap:
+          name: {{ template "keydb.fullname" . }}-utils
+          defaultMode: 0700
+          items:
+          - key: server.sh
+            path: server.sh
+      {{- if not .Values.persistentVolume.enabled }}
+      - name: keydb-data
         emptyDir: {}
-{{ end }}
-{{ if .Values.persistentVolume.enabled }}
+      {{- end }}
+  {{- if .Values.persistentVolume.enabled }}
   volumeClaimTemplates:
   - metadata:
       name: keydb-data
       annotations:
-{{ if .Values.persistentVolume.annotations }}
+      {{- if .Values.persistentVolume.annotations }}
 {{ toYaml .Values.persistentVolume.annotations | indent 8 }}
-{{ end }}
+      {{- end }}
       labels:
     spec:
       accessModes:
@@ -87,11 +82,11 @@ spec:
       resources:
         requests:
           storage: {{ .Values.persistentVolume.size }}
-{{ if .Values.persistentVolume.storageClass }}
-{{ if (eq "-" .Values.persistentVolume.storageClass) }}
+      {{- if .Values.persistentVolume.storageClass }}
+      {{- if (eq "-" .Values.persistentVolume.storageClass) }}
       storageClassName: ""
-{{ else }}
+      {{ else }}
       storageClassName: {{ .Values.persistentVolume.storageClass }}
-{{ end }}
-{{ end }}
-{{ end }}
+      {{- end }}
+      {{- end }}
+  {{- end }}
