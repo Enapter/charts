@@ -2,8 +2,34 @@ apiVersion: v1
 entries:
   keydb:
   - apiVersion: v2
+    appVersion: 5.3.2
+    created: "2020-03-02T13:58:59.732858078+03:00"
+    description: A Helm chart for KeyDB multimaster setup
+    digest: 73ec63bfa3f3712578d1cb0460e58237c76b688954f166ca4944ca7834b4ae33
+    home: https://keydb.dev
+    icon: https://keydb.dev/assets/ico/keydb_logo_bwtxtw.png
+    keywords:
+    - keydb
+    - redis
+    - keyvalue
+    - database
+    - multimaster
+    - HA
+    - high-availability
+    maintainers:
+    - email: avoronkov@enapter.com
+      name: Antiarchitect
+      url: https://github.com/Antiarchitect
+    name: keydb
+    sources:
+    - https://github.com/Enapter/charts
+    - https://github.com/JohnSully/KeyDB
+    urls:
+    - https://github.com/Enapter/charts/releases/download/keydb-0.3.1/keydb-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
     appVersion: 5.3.0
-    created: "2020-03-02T13:38:16.249066114+03:00"
+    created: "2020-03-02T13:58:59.511088021+03:00"
     description: A Helm chart for KeyDB multimaster setup
     digest: e0eeb9a8637644939e76fde61953e06a1fa5886cc64019477d3599007cbf1c23
     home: https://keydb.dev
@@ -29,7 +55,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 5.3.0
-    created: "2020-03-02T13:38:15.708658366+03:00"
+    created: "2020-03-02T13:58:59.284674174+03:00"
     description: A Helm chart for KeyDB multimaster setup
     digest: b9808d61292864dff73046f2e2cb5e8ff3fc22a89df4a70535606a611a497890
     home: https://keydb.dev
@@ -55,7 +81,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 5.3.0
-    created: "2020-03-02T13:38:15.461178229+03:00"
+    created: "2020-03-02T13:58:59.042864983+03:00"
     description: A Helm chart for KeyDB multimaster setup
     digest: 66178b624bf5be3d9a0ccf78264d065b2f2e2ab6757ce8331b4116fbb47ddb9f
     home: https://keydb.dev
@@ -79,4 +105,4 @@ entries:
     urls:
     - https://github.com/Enapter/charts/releases/download/keydb-0.1.0/keydb-0.1.0.tgz
     version: 0.1.0
-generated: "2020-03-02T13:38:15.004309459+03:00"
+generated: "2020-03-02T13:58:58.606342969+03:00"
