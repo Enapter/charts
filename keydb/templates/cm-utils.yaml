@@ -7,23 +7,26 @@ metadata:
 data:
   server.sh: |
     #!/bin/bash
+    set -euxo pipefail
+
+    host="$(hostname)"
     port="6379"
     replicas=()
     for node in {0..{{ (sub (.Values.nodes | int) 1) }}}; do
-      if [ "$(hostname)" != "{{ template "keydb.fullname" . }}-${node}" ]; then
-          replicas+=(--replicaof {{ template "keydb.fullname" . }}-${node}.{{ template "keydb.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local "$port")
+      if [ "$host" != "{{ template "keydb.fullname" . }}-${node}" ]; then
+          replicas+=("--replicaof {{ template "keydb.fullname" . }}-${node}.{{ template "keydb.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local ${port}")
       fi
     done
     keydb-server /etc/keydb/redis.conf \
+        --active-replica yes \
+        --multi-master yes \
         --appendonly {{ .Values.appendonly }} \
         --bind 0.0.0.0 \
         --port "$port" \
         --protected-mode no \
         --server-threads {{ .Values.threads | int }} \
-        "${replicas[@]}" \
 {{- if .Values.password }}
         --masterauth {{ .Values.password }} \
         --requirepass {{ .Values.password }} \
 {{- end }}
-        --active-replica yes \
-        --multi-master yes
+        "${replicas[@]}"
