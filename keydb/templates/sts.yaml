@@ -67,6 +67,8 @@ spec:
       - name: keydb-data
         emptyDir: {}
       {{- end }}
+      resources:
+{{ toYaml .Values.resources | indent 8 }}
   {{- if .Values.persistentVolume.enabled }}
   volumeClaimTemplates:
   - metadata:

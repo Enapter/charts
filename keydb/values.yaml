@@ -19,3 +19,5 @@ persistentVolume:
   accessModes:
   - ReadWriteOnce
   size: 1Gi
+
+resources: {}
