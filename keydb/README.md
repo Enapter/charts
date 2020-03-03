@@ -42,3 +42,5 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `persistentVolume.enabled`     | Should PVC be created via volumeClaimTemplates  | `true`                        |
 | `persistentVolume.accessModes` | Volume access modes                             | `[ReadWriteOnce]`             |
 | `persistentVolume.size`        | Size of the volume                              | `1Gi`                         |
+| `resources`                    | K8s Resources for KeyDB containers              | `{}`                          |
+| `securityContext`              | K8s SecurityContext for KeyDB pods              | `{}`                          |

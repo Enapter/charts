@@ -21,3 +21,12 @@ persistentVolume:
   size: 1Gi
 
 resources: {}
+
+# Please read https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/#enabling-unsafe-sysctls
+# before sysctls setup
+securityContext: {}
+  # sysctls:
+  # - name: net.core.somaxconn
+  #   value: "512"
+  # - name: vm.overcommit_memory
+  #   value: "1"

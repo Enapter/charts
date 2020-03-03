@@ -37,12 +37,8 @@ spec:
       - name: keydb
         image: {{ .Values.image }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        volumeMounts:
-        - name: keydb-data
-          mountPath: /data
-        - name: utils
-          mountPath: /utils
-          readOnly: true
+        command:
+        - /utils/server.sh
         ports:
         - name: keydb
           containerPort: 6379
@@ -53,8 +49,16 @@ spec:
         readinessProbe:
           tcpSocket:
             port: keydb
-        command:
-        - /utils/server.sh
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        volumeMounts:
+        - name: keydb-data
+          mountPath: /data
+        - name: utils
+          mountPath: /utils
+          readOnly: true
+      securityContext:
+{{ toYaml .Values.securityContext | indent 8 }}
       volumes:
       - name: utils
         configMap:
@@ -67,8 +71,6 @@ spec:
       - name: keydb-data
         emptyDir: {}
       {{- end }}
-      resources:
-{{ toYaml .Values.resources | indent 8 }}
   {{- if .Values.persistentVolume.enabled }}
   volumeClaimTemplates:
   - metadata:
