@@ -23,7 +23,7 @@ To install the chart
 
 ```bash
 helm repo add enapter https://enapter.github.io/charts/
-helm install enapter/keydb
+helm install keydb enapter/keydb
 ```
 
 ## Configuration
@@ -32,7 +32,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 
 | Parameter                      | Description                                     | Default                       |
 |:-------------------------------|:------------------------------------------------|:------------------------------|
-| `image`                        | KeyDB docker image                              | `eqalpha/keydb:x86_64_v5.3.0` |
+| `image`                        | KeyDB docker image                              | `eqalpha/keydb:x86_64_v5.3.2` |
 | `imagePullPolicy`              | K8s imagePullPolicy                             | `IfNotPresent`                |
 | `nodes`                        | Number of KeyDB master pods                     | `3`                           |
 | `password`                     | If enabled KeyDB servers are password-protected | `""`                          |
