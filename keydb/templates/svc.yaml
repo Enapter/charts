@@ -1,3 +1,4 @@
+# Headless service for proper name resolution
 apiVersion: v1
 kind: Service
 metadata:
@@ -6,6 +7,7 @@ metadata:
 {{ include "keydb.labels" . | indent 4 }}
 spec:
   type: ClusterIP
+  clusterIP: None
   ports:
   - name: server
     port: {{ .Values.port | int }}
