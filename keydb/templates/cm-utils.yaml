@@ -14,7 +14,7 @@ data:
     replicas=()
     for node in {0..{{ (sub (.Values.nodes | int) 1) }}}; do
       if [ "$host" != "{{ template "keydb.fullname" . }}-${node}" ]; then
-          replicas+=("--replicaof {{ template "keydb.fullname" . }}-${node}.{{ template "keydb.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local ${port}")
+          replicas+=("--replicaof {{ template "keydb.fullname" . }}-${node}.{{ template "keydb.fullname" . }} ${port}")
       fi
     done
     keydb-server /etc/keydb/redis.conf \
