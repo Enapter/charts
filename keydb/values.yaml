@@ -19,6 +19,7 @@ persistentVolume:
   accessModes:
   - ReadWriteOnce
   size: 1Gi
+  storageClass: "-"
 
 resources: {}
 

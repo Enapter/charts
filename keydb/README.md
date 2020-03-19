@@ -30,17 +30,18 @@ helm install keydb enapter/keydb
 
 The following table lists the configurable parameters of the KeyDB chart and their default values.
 
-| Parameter                      | Description                                     | Default                       |
-|:-------------------------------|:------------------------------------------------|:------------------------------|
-| `image`                        | KeyDB docker image                              | `eqalpha/keydb:x86_64_v5.3.2` |
-| `imagePullPolicy`              | K8s imagePullPolicy                             | `IfNotPresent`                |
-| `nodes`                        | Number of KeyDB master pods                     | `3`                           |
-| `password`                     | If enabled KeyDB servers are password-protected | `""`                          |
-| `port`                         | KeyDB service port clients connect to           | `6379`                        |
-| `threads`                      | KeyDB server-threads per node                   | `2`                           |
-| `appendonly`                   | KeyDB appendonly setting                        | `"no"`                        |
-| `persistentVolume.enabled`     | Should PVC be created via volumeClaimTemplates  | `true`                        |
-| `persistentVolume.accessModes` | Volume access modes                             | `[ReadWriteOnce]`             |
-| `persistentVolume.size`        | Size of the volume                              | `1Gi`                         |
-| `resources`                    | K8s Resources for KeyDB containers              | `{}`                          |
-| `securityContext`              | K8s SecurityContext for KeyDB pods              | `{}`                          |
+| Parameter                       | Description                                     | Default                       |
+|:--------------------------------|:------------------------------------------------|:------------------------------|
+| `image`                         | KeyDB docker image                              | `eqalpha/keydb:x86_64_v5.3.2` |
+| `imagePullPolicy`               | K8s imagePullPolicy                             | `IfNotPresent`                |
+| `nodes`                         | Number of KeyDB master pods                     | `3`                           |
+| `password`                      | If enabled KeyDB servers are password-protected | `""`                          |
+| `port`                          | KeyDB service port clients connect to           | `6379`                        |
+| `threads`                       | KeyDB server-threads per node                   | `2`                           |
+| `appendonly`                    | KeyDB appendonly setting                        | `"no"`                        |
+| `persistentVolume.enabled`      | Should PVC be created via volumeClaimTemplates  | `true`                        |
+| `persistentVolume.accessModes`  | Volume access modes                             | `[ReadWriteOnce]`             |
+| `persistentVolume.size`         | Size of the volume                              | `1Gi`                         |
+| `persistentVolume.storageClass` | StorageClassName for volume                     | `"-"`                         |
+| `resources`                     | K8s Resources for KeyDB containers              | `{}`                          |
+| `securityContext`               | K8s SecurityContext for KeyDB pods              | `{}`                          |
