@@ -6,7 +6,7 @@
 
 ```bash
 helm repo add enapter https://enapter.github.io/charts/
-helm install enapter/keydb
+helm install keydb enapter/keydb
 ```
 
 ## Introduction
