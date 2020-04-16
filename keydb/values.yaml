@@ -12,8 +12,9 @@ port: 6379
 
 threads: 2
 
+configExtraArgs: {}
+
 appendonly: "no"
-replicaServeStaleData: "yes"
 
 persistentVolume:
   enabled: true

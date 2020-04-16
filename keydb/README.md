@@ -43,6 +43,6 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `persistentVolume.accessModes`  | Volume access modes                             | `[ReadWriteOnce]`             |
 | `persistentVolume.size`         | Size of the volume                              | `1Gi`                         |
 | `persistentVolume.storageClass` | StorageClassName for volume                     | `"-"`                         |
-| `replicaServeStaleData`         | KeyDB replica-serve-stale-data setting          | `"yes"`                       |
+| `configExtraArgs`               | Additional configuration arguments for KeyDB    | `{}`                          |
 | `resources`                     | K8s Resources for KeyDB containers              | `{}`                          |
 | `securityContext`               | K8s SecurityContext for KeyDB pods              | `{}`                          |
