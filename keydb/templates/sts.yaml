@@ -61,8 +61,8 @@ spec:
 {{ toYaml .Values.securityContext | indent 8 }}
       volumes:
       - name: utils
-        configMap:
-          name: {{ template "keydb.fullname" . }}-utils
+        secret:
+          secretName: {{ template "keydb.fullname" . }}-utils
           defaultMode: 0700
           items:
           - key: server.sh

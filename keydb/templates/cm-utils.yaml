@@ -1,10 +1,11 @@
 apiVersion: v1
-kind: ConfigMap
+kind: Secret
 metadata:
   name: {{ template "keydb.fullname" . }}-utils
   labels:
 {{ include "keydb.labels" . | indent 4 }}
-data:
+type: Opaque
+stringData:
   server.sh: |
     #!/bin/bash
     set -euxo pipefail
