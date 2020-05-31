@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cm-utils: {{ include (print $.Template.BasePath "/cm-utils.yaml") . | sha256sum }}
+        checksum/secret-utils: {{ include (print $.Template.BasePath "/secret-utils.yaml") . | sha256sum }}
       labels:
 {{ include "keydb.labels" . | indent 8 }}
     spec:
