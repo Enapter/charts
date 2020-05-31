@@ -3,9 +3,9 @@ entries:
   keydb:
   - apiVersion: v2
     appVersion: 5.3.3
-    created: "2020-05-31T04:05:58.229050893+03:00"
+    created: "2020-05-31T04:12:23.191311386+03:00"
     description: A Helm chart for KeyDB multimaster setup
-    digest: 773943b35c3e316bad7888301fdfb26d28c02312b10a57a0778fde6c0cb3ae5c
+    digest: 30b69e94ede880c48b23146bf2c824c0d460005ed6ee2c83a735488951839cf0
     home: https://keydb.dev
     icon: https://keydb.dev/assets/ico/keydb_logo_bwtxtw.png
     keywords:
@@ -25,6 +25,6 @@ entries:
     - https://github.com/Enapter/charts
     - https://github.com/JohnSully/KeyDB
     urls:
-    - https://github.com/Enapter/charts/releases/download/keydb-0.8.1/keydb-0.8.1.tgz
-    version: 0.8.1
-generated: "2020-05-31T04:05:56.914659109+03:00"
+    - https://github.com/Enapter/charts/releases/download/keydb-0.8.2/keydb-0.8.2.tgz
+    version: 0.8.2
+generated: "2020-05-31T04:12:21.94860514+03:00"
