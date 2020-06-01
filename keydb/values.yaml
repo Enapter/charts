@@ -40,3 +40,7 @@ securityContext: {}
   #   value: "512"
   # - name: vm.overcommit_memory
   #   value: "1"
+
+loadBalancer:
+  enabled: false
+  loadBalancerIP: ""
