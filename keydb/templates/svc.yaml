@@ -31,6 +31,9 @@ spec:
   {{- if ne .Values.loadBalancer.IP "" }}
   loadBalancerIP: "{{ .Values.loadBalancer.IP }}"
   {{- end }}
+  {{- if .Values.loadBalancer.extra }}
+{{ toYaml .Values.loadBalancer.extra | indent 2 }}
+  {{- end }}
   ports:
   - name: server
     port: {{ .Values.port | int }}

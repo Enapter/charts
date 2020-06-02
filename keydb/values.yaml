@@ -43,4 +43,5 @@ securityContext: {}
 
 loadBalancer:
   enabled: false
-  loadBalancerIP: ""
+  IP: ""
+  extra: {}
