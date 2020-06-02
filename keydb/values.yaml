@@ -45,3 +45,6 @@ loadBalancer:
   enabled: false
   IP: ""
   extra: {}
+  # extra:
+  #   loadBalancerSourceRanges:
+  #   - 1.2.3.4/32
