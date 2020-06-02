@@ -44,6 +44,9 @@ securityContext: {}
 loadBalancer:
   enabled: false
   IP: ""
+  annotations: {}
+  # annotations:
+  #   service.beta.kubernetes.io/aws-load-balancer-type: nlb
   extra: {}
   # extra:
   #   loadBalancerSourceRanges:

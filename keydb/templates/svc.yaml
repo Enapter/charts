@@ -26,6 +26,10 @@ metadata:
   name: {{ template "keydb.fullname" . }}-lb
   labels:
 {{ include "keydb.labels" . | indent 4 }}
+  {{- if .Values.loadBalancer.annotations }}
+  annotations:
+{{ toYaml .Values.loadBalancer.annotations | indent 4 }}
+  {{- end }}
 spec:
   type: LoadBalancer
   {{- if ne .Values.loadBalancer.IP "" }}
