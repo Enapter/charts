@@ -40,3 +40,14 @@ securityContext: {}
   #   value: "512"
   # - name: vm.overcommit_memory
   #   value: "1"
+
+loadBalancer:
+  enabled: false
+  IP: ""
+  annotations: {}
+  # annotations:
+  #   service.beta.kubernetes.io/aws-load-balancer-type: nlb
+  extra: {}
+  # extra:
+  #   loadBalancerSourceRanges:
+  #   - 1.2.3.4/32

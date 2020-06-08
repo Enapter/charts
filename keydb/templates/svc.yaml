@@ -15,3 +15,34 @@ spec:
     targetPort: keydb
   selector:
 {{ include "keydb.selectorLabels" . | indent 4 }}
+
+
+{{- if .Values.loadBalancer.enabled }}
+---
+# Load balancer service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "keydb.fullname" . }}-lb
+  labels:
+{{ include "keydb.labels" . | indent 4 }}
+  {{- if .Values.loadBalancer.annotations }}
+  annotations:
+{{ toYaml .Values.loadBalancer.annotations | indent 4 }}
+  {{- end }}
+spec:
+  type: LoadBalancer
+  {{- if ne .Values.loadBalancer.IP "" }}
+  loadBalancerIP: "{{ .Values.loadBalancer.IP }}"
+  {{- end }}
+  {{- if .Values.loadBalancer.extra }}
+{{ toYaml .Values.loadBalancer.extra | indent 2 }}
+  {{- end }}
+  ports:
+  - name: server
+    port: {{ .Values.port | int }}
+    protocol: TCP
+    targetPort: keydb
+  selector:
+{{ include "keydb.selectorLabels" . | indent 4 }}
+{{- end }}
