@@ -48,5 +48,4 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `securityContext`               | K8s SecurityContext for KeyDB pods              | `{}`                          |
 | `loadBalancer.enabled`          | Create LoadBalancer service                     | `false`                       |
 | `loadBalancer.annotations`      | Annotations for LB                              | `{}`                          |
-| `loadBalancer.IP`               | Dedicated IP for LB (ex. MetalLB)               | ``                            |
-| `loadBalancer.extra`            | Additional spec for LB                          | `{}`                          |
+| `loadBalancer.extraSpec`        | Additional spec for LB                          | `{}`                          |

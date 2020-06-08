@@ -1,0 +1,24 @@
+{{- if .Values.loadBalancer.enabled }}
+---
+# Load balancer service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "keydb.fullname" . }}-lb
+  labels:
+{{ include "keydb.labels" . | indent 4 }}
+  annotations:
+{{ toYaml .Values.loadBalancer.annotations | indent 4 }}
+spec:
+  type: LoadBalancer
+  {{- if .Values.loadBalancer.extraSpec }}
+{{ toYaml .Values.loadBalancer.extraSpec | indent 2 }}
+  {{- end }}
+  ports:
+  - name: server
+    port: {{ .Values.port | int }}
+    protocol: TCP
+    targetPort: keydb
+  selector:
+{{ include "keydb.selectorLabels" . | indent 4 }}
+{{- end }}

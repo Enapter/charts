@@ -43,11 +43,13 @@ securityContext: {}
 
 loadBalancer:
   enabled: false
-  IP: ""
-  annotations: {}
+
   # annotations:
   #   service.beta.kubernetes.io/aws-load-balancer-type: nlb
-  extra: {}
-  # extra:
+  annotations: {}
+
+  # extraSpec:
+  #   loadBalancerIP: "1.2.3.4"
   #   loadBalancerSourceRanges:
   #   - 1.2.3.4/32
+  extraSpec: {}
