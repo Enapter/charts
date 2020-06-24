@@ -54,6 +54,10 @@ loadBalancer:
   #   - 1.2.3.4/32
   extraSpec: {}
 
+dedicatedNodePool:
+  enabled: false
+  node_pool: "np-redis"
+
 livenessProbe:
   enabled: true
   initialDelaySeconds: 30

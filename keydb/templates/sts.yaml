@@ -18,6 +18,16 @@ spec:
 {{ include "keydb.labels" . | indent 8 }}
     spec:
       affinity:
+        {{- if .Values.dedicatedNodePool.enabled }}
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: node_pool
+                  operator: In
+                  values:
+                    - {{ .Values.dedicatedNodePool.node_pool }}
+        {{- end }}
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
