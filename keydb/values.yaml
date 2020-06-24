@@ -54,22 +54,29 @@ loadBalancer:
   #   - 1.2.3.4/32
   extraSpec: {}
 
-dedicatedNodePool:
-  enabled: false
-  node_pool: "np-redis"
+additionalAffinities: {}
+  # nodeAffinity:
+  #   requiredDuringSchedulingIgnoredDuringExecution:
+  #     nodeSelectorTerms:
+  #       - matchExpressions:
+  #         - key: node_pool
+  #           operator: In
+  #           values: somenodepool
 
 livenessProbe:
-  enabled: true
+  tcpSocket:
+    port: keydb
   initialDelaySeconds: 30
   periodSeconds: 5
   timeoutSeconds: 1
-  failureThreshold: 3
-  successThreshold: 1
+  successThreshold: 3
+  failureThreshold: 1
 
 readinessProbe:
-  enabled: true
+  tcpSocket:
+    port: keydb
   initialDelaySeconds: 20
   periodSeconds: 3
   timeoutSeconds: 1
-  failureThreshold: 3
-  successThreshold: 1
+  successThreshold: 3
+  failureThreshold: 1

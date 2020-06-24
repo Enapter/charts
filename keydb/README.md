@@ -49,3 +49,6 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `loadBalancer.enabled`          | Create LoadBalancer service                     | `false`                       |
 | `loadBalancer.annotations`      | Annotations for LB                              | `{}`                          |
 | `loadBalancer.extraSpec`        | Additional spec for LB                          | `{}`                          |
+| `additionalAffinities`          | Additional affinities for StatefulSet           | `{}`                          |
+| `livenessProbe`                 | LivenessProbe for StatefulSet                   | Look values.yaml              |
+| `readinessProbe`                | ReadinessProbe for StatefulSet                  | Look values.yaml              |
