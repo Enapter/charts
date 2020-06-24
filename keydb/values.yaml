@@ -19,7 +19,7 @@ appendonly: "no"
 persistentVolume:
   enabled: true
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   size: 1Gi
 
   ## If defined, storageClassName: <storageClass>
@@ -53,3 +53,19 @@ loadBalancer:
   #   loadBalancerSourceRanges:
   #   - 1.2.3.4/32
   extraSpec: {}
+
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 5
+  timeoutSeconds: 1
+  failureThreshold: 3
+  successThreshold: 1
+
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 20
+  periodSeconds: 3
+  timeoutSeconds: 1
+  failureThreshold: 3
+  successThreshold: 1
