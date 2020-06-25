@@ -66,17 +66,9 @@ additionalAffinities: {}
 livenessProbe:
   tcpSocket:
     port: keydb
-  initialDelaySeconds: 30
-  periodSeconds: 5
-  timeoutSeconds: 1
-  successThreshold: 3
-  failureThreshold: 1
+  initialDelaySeconds: 15
 
 readinessProbe:
   tcpSocket:
     port: keydb
-  initialDelaySeconds: 20
-  periodSeconds: 3
-  timeoutSeconds: 1
-  successThreshold: 3
-  failureThreshold: 1
+  initialDelaySeconds: 10
