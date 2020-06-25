@@ -72,3 +72,24 @@ readinessProbe:
   tcpSocket:
     port: keydb
   initialDelaySeconds: 10
+
+# Redis exporter
+exporter:
+  enabled: true
+  image: oliver006/redis_exporter
+  tag: v1.8.0-alpine
+  pullPolicy: IfNotPresent
+
+  # prometheus port & scrape path
+  scrape: true
+  port: 9121
+  scrapePath: /metrics
+
+  # Address/Host for Redis instance.
+  address: localhost
+
+  # cpu/memory resource limits/requests
+  resources: {}
+
+  # Additional args for redis exporter
+  extraArgs: {}

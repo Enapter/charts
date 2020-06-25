@@ -14,6 +14,11 @@ spec:
     metadata:
       annotations:
         checksum/secret-utils: {{ include (print $.Template.BasePath "/secret-utils.yaml") . | sha256sum }}
+        {{- if .Values.exporter.enabled }}
+        prometheus.io/port: "{{ .Values.exporter.port }}"
+        prometheus.io/scrape: "{{ .Values.exporter.scrape }}"
+        prometheus.io/path: "{{ .Values.exporter.scrapePath }}"
+        {{- end }}
       labels:
 {{ include "keydb.labels" . | indent 8 }}
     spec:
@@ -62,6 +67,34 @@ spec:
         - name: utils
           mountPath: /utils
           readOnly: true
+{{- if .Values.exporter.enabled }}
+      - name: redis-exporter
+        image: "{{ .Values.exporter.image }}:{{ .Values.exporter.tag }}"
+        imagePullPolicy: {{ .Values.exporter.pullPolicy }}
+        args:
+        {{- range $key, $value := .Values.exporter.extraArgs }}
+        - --{{ $key }}={{ $value }}
+        {{- end }}
+        env:
+        - name: REDIS_ADDR
+          value: redis://{{ default "localhost" .Values.exporter.address }}:{{ .Values.port }}
+        {{- if .Values.password }}
+        - name: REDIS_PASSWORD
+          value: "{{ .Values.password }}"
+        {{- end }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.exporter.scrapePath }}
+            port: {{ .Values.exporter.port }}
+          initialDelaySeconds: 10
+          timeoutSeconds: 1
+          periodSeconds: 15
+        resources:
+{{ toYaml .Values.exporter.resources | indent 10 }}
+        ports:
+        - name: exporter-port
+          containerPort: {{ .Values.exporter.port }}
+{{- end }}
       securityContext:
 {{ toYaml .Values.securityContext | indent 8 }}
       volumes:
