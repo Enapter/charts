@@ -30,25 +30,34 @@ helm install keydb enapter/keydb
 
 The following table lists the configurable parameters of the KeyDB chart and their default values.
 
-| Parameter                       | Description                                     | Default                       |
-|:--------------------------------|:------------------------------------------------|:------------------------------|
-| `image`                         | KeyDB docker image                              | `eqalpha/keydb:x86_64_v5.3.3` |
-| `imagePullPolicy`               | K8s imagePullPolicy                             | `IfNotPresent`                |
-| `nodes`                         | Number of KeyDB master pods                     | `3`                           |
-| `password`                      | If enabled KeyDB servers are password-protected | `""`                          |
-| `port`                          | KeyDB service port clients connect to           | `6379`                        |
-| `threads`                       | KeyDB server-threads per node                   | `2`                           |
-| `appendonly`                    | KeyDB appendonly setting                        | `"no"`                        |
-| `persistentVolume.enabled`      | Should PVC be created via volumeClaimTemplates  | `true`                        |
-| `persistentVolume.accessModes`  | Volume access modes                             | `[ReadWriteOnce]`             |
-| `persistentVolume.size`         | Size of the volume                              | `1Gi`                         |
-| `persistentVolume.storageClass` | StorageClassName for volume                     | ``                            |
-| `configExtraArgs`               | Additional configuration arguments for KeyDB    | `{}`                          |
-| `resources`                     | K8s Resources for KeyDB containers              | `{}`                          |
-| `securityContext`               | K8s SecurityContext for KeyDB pods              | `{}`                          |
-| `loadBalancer.enabled`          | Create LoadBalancer service                     | `false`                       |
-| `loadBalancer.annotations`      | Annotations for LB                              | `{}`                          |
-| `loadBalancer.extraSpec`        | Additional spec for LB                          | `{}`                          |
-| `additionalAffinities`          | Additional affinities for StatefulSet           | `{}`                          |
-| `livenessProbe`                 | LivenessProbe for StatefulSet                   | Look values.yaml              |
-| `readinessProbe`                | ReadinessProbe for StatefulSet                  | Look values.yaml              |
+| Parameter                       | Description                                     | Default                                  |
+|:--------------------------------|:------------------------------------------------|:-----------------------------------------|
+| `image`                         | KeyDB docker image                              | `eqalpha/keydb:x86_64_v5.3.3`            |
+| `imagePullPolicy`               | K8s imagePullPolicy                             | `IfNotPresent`                           |
+| `nodes`                         | Number of KeyDB master pods                     | `3`                                      |
+| `password`                      | If enabled KeyDB servers are password-protected | `""`                                     |
+| `port`                          | KeyDB service port clients connect to           | `6379`                                   |
+| `threads`                       | KeyDB server-threads per node                   | `2`                                      |
+| `appendonly`                    | KeyDB appendonly setting                        | `"no"`                                   |
+| `persistentVolume.enabled`      | Should PVC be created via volumeClaimTemplates  | `true`                                   |
+| `persistentVolume.accessModes`  | Volume access modes                             | `[ReadWriteOnce]`                        |
+| `persistentVolume.size`         | Size of the volume                              | `1Gi`                                    |
+| `persistentVolume.storageClass` | StorageClassName for volume                     | ``                                       |
+| `configExtraArgs`               | Additional configuration arguments for KeyDB    | `{}`                                     |
+| `resources`                     | Resources for KeyDB containers                  | `{}`                                     |
+| `securityContext`               | SecurityContext for KeyDB pods                  | `{}`                                     |
+| `loadBalancer.enabled`          | Create LoadBalancer service                     | `false`                                  |
+| `loadBalancer.annotations`      | Annotations for LB                              | `{}`                                     |
+| `loadBalancer.extraSpec`        | Additional spec for LB                          | `{}`                                     |
+| `additionalAffinities`          | Additional affinities for StatefulSet           | `{}`                                     |
+| `livenessProbe`                 | LivenessProbe for StatefulSet                   | Look values.yaml                         |
+| `readinessProbe`                | ReadinessProbe for StatefulSet                  | Look values.yaml                         |
+| `exporter.enabled`              | Prometheus Exporter sidecar contaner            | `false`                                  |
+| `exporter.image`                | Exporter Image                                  | `oliver006/redis_exporter:v1.8.0-alpine` |
+| `exporter.pullPolicy`           | Exporter imagePullPolicy                        | `IfNotPresent`                           |
+| `exporter.port`                 | `prometheus.io/port`                            | `9121`                                   |
+| `exporter.scrapePath`           | `prometheus.io/path`                            | `/metrics`                               |
+| `exporter.livenessProbe`        | LivenessProbe for sidecar Prometheus exporter   | Look values.yaml                         |
+| `exporter.readinessProbe`       | ReadinessProbe for sidecar Prometheus exporter  | Look values.yaml                         |
+| `exporter.resources`            | Resources for sidecar Prometheus container      | `{}`                                     |
+| `exporter.extraArgs`            | Additional arguments for exporter               | `{}`                                     |

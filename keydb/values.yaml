@@ -75,20 +75,29 @@ readinessProbe:
 
 # Redis exporter
 exporter:
-  enabled: true
-  image: oliver006/redis_exporter
-  tag: v1.8.0-alpine
+  enabled: false
+  image: oliver006/redis_exporter:v1.8.0-alpine
   pullPolicy: IfNotPresent
 
-  # prometheus port & scrape path
-  scrape: true
+  # Prometheus port & scrape path
   port: 9121
   scrapePath: /metrics
 
-  # Address/Host for Redis instance.
-  address: localhost
+  # Liveness Probe
+  livenessProbe:
+    httpGet:
+      path: /metrics
+      port: 9121
+    initialDelaySeconds: 15
 
-  # cpu/memory resource limits/requests
+  # Readiness Probe
+  readinessProbe:
+    httpGet:
+      path: /metrics
+      port: 9121
+    initialDelaySeconds: 10
+
+  # CPU/Memory resource limits/requests
   resources: {}
 
   # Additional args for redis exporter
