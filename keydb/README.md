@@ -39,6 +39,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `port`                          | KeyDB service port clients connect to           | `6379`                                   |
 | `threads`                       | KeyDB server-threads per node                   | `2`                                      |
 | `appendonly`                    | KeyDB appendonly setting                        | `"no"`                                   |
+| `tolerations`                   | KeyDB tolerations setting                       | `{}`
 | `persistentVolume.enabled`      | Should PVC be created via volumeClaimTemplates  | `true`                                   |
 | `persistentVolume.accessModes`  | Volume access modes                             | `[ReadWriteOnce]`                        |
 | `persistentVolume.size`         | Size of the volume                              | `1Gi`                                    |

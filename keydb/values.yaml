@@ -16,6 +16,12 @@ configExtraArgs: {}
 
 appendonly: "no"
 
+tolerations: {}
+  # - effect: NoSchedule
+  #   key: key
+  #   operator: Equal
+  #   value: value
+
 persistentVolume:
   enabled: true
   accessModes:
