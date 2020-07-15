@@ -2,6 +2,32 @@ apiVersion: v1
 entries:
   keydb:
   - apiVersion: v2
+    appVersion: 6.0.13
+    created: "2020-07-15T09:15:45.428499938+03:00"
+    description: A Helm chart for KeyDB multimaster setup
+    digest: ef6d4fe489e09ab1f0ec55ed700a83122e75d996b3fc090b008ec4ecf229dfc0
+    home: https://keydb.dev
+    icon: https://keydb.dev/assets/ico/keydb_logo_bwtxtw.png
+    keywords:
+    - keydb
+    - redis
+    - keyvalue
+    - database
+    - multimaster
+    - HA
+    - high-availability
+    maintainers:
+    - email: avoronkov@enapter.com
+      name: Antiarchitect
+      url: https://github.com/Antiarchitect
+    name: keydb
+    sources:
+    - https://github.com/Enapter/charts
+    - https://github.com/JohnSully/KeyDB
+    urls:
+    - https://github.com/Enapter/charts/releases/download/keydb-0.13.0/keydb-0.13.0.tgz
+    version: 0.13.0
+  - apiVersion: v2
     appVersion: 5.3.3
     created: "2020-07-15T08:50:12.81613538+03:00"
     description: A Helm chart for KeyDB multimaster setup
@@ -287,4 +313,4 @@ entries:
     urls:
     - https://github.com/Enapter/charts/releases/download/keydb-0.6.0/keydb-0.6.0.tgz
     version: 0.6.0
-generated: "2020-07-15T08:50:12.507224045+03:00"
+generated: "2020-07-15T09:15:45.12076587+03:00"
