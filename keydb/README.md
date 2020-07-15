@@ -32,14 +32,14 @@ The following table lists the configurable parameters of the KeyDB chart and the
 
 | Parameter                       | Description                                     | Default                                  |
 |:--------------------------------|:------------------------------------------------|:-----------------------------------------|
-| `image`                         | KeyDB docker image                              | `eqalpha/keydb:x86_64_v5.3.3`            |
+| `image`                         | KeyDB docker image                              | `eqalpha/keydb:x86_64_v6.0.13`           |
 | `imagePullPolicy`               | K8s imagePullPolicy                             | `IfNotPresent`                           |
 | `nodes`                         | Number of KeyDB master pods                     | `3`                                      |
 | `password`                      | If enabled KeyDB servers are password-protected | `""`                                     |
 | `port`                          | KeyDB service port clients connect to           | `6379`                                   |
 | `threads`                       | KeyDB server-threads per node                   | `2`                                      |
 | `appendonly`                    | KeyDB appendonly setting                        | `"no"`                                   |
-| `tolerations`                   | KeyDB tolerations setting                       | `{}`
+| `tolerations`                   | KeyDB tolerations setting                       | `{}`                                     |
 | `persistentVolume.enabled`      | Should PVC be created via volumeClaimTemplates  | `true`                                   |
 | `persistentVolume.accessModes`  | Volume access modes                             | `[ReadWriteOnce]`                        |
 | `persistentVolume.size`         | Size of the volume                              | `1Gi`                                    |
