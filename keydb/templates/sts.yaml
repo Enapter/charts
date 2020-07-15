@@ -98,6 +98,10 @@ spec:
 {{- end }}
       securityContext:
 {{ toYaml .Values.securityContext | indent 8 }}
+      {{- if .Values.tolerations }}
+      tolerations:
+{{ toYaml .Values.tolerations | indent 8 }}
+      {{- end }}
       volumes:
       - name: utils
         secret:
