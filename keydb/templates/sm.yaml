@@ -20,7 +20,7 @@ spec:
     any: true
   endpoints:
   - port: redis-exporter
-    path: /metrics
+    path: {{ .Values.exporter.scrapePath }}
     {{- if .Values.serviceMonitor.interval }}
     interval: {{ .Values.serviceMonitor.interval }}
     {{- end }}

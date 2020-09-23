@@ -53,6 +53,11 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `additionalAffinities`          | Additional affinities for StatefulSet           | `{}`                                     |
 | `livenessProbe`                 | LivenessProbe for StatefulSet                   | Look values.yaml                         |
 | `readinessProbe`                | ReadinessProbe for StatefulSet                  | Look values.yaml                         |
+| `serviceMonitor.enabled`        | Prometheus operator ServiceMonitor              | `false`                                  |
+| `serviceMonitor.labels`         | Additional labels for ServiceMonitor            | `{}`                                  |
+| `serviceMonitor.annotations`    | Additional annotations for ServiceMonitor       | `{}`                                  |
+| `serviceMonitor.interval`       | ServiceMonitor scrape interval                  | `30s`                                  |
+| `serviceMonitor.scrapeTimeout`  | ServiceMonitor scrape timeout                   | `nil`                                  |
 | `exporter.enabled`              | Prometheus Exporter sidecar contaner            | `false`                                  |
 | `exporter.image`                | Exporter Image                                  | `oliver006/redis_exporter:v1.8.0-alpine` |
 | `exporter.pullPolicy`           | Exporter imagePullPolicy                        | `IfNotPresent`                           |
