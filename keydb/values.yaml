@@ -79,6 +79,15 @@ readinessProbe:
     port: keydb
   initialDelaySeconds: 10
 
+# Prometheus-operator ServiceMonitor
+serviceMonitor:
+  # Redis exporter must also be enabled
+  enabled: false
+  labels:
+  annotations:
+  interval: 30s
+  # scrapeTimeout: 20s
+
 # Redis exporter
 exporter:
   enabled: false
