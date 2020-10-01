@@ -13,5 +13,9 @@ spec:
     port: {{ .Values.port | int }}
     protocol: TCP
     targetPort: keydb
+  - name: redis-exporter
+    port: {{ .Values.exporter.port | int }}
+    protocol: TCP
+    targetPort: redis-exporter
   selector:
 {{ include "keydb.selectorLabels" . | indent 4 }}

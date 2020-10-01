@@ -1,0 +1,30 @@
+{{- if and .Values.exporter.enabled .Values.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "keydb.fullname" . }}
+  labels:
+{{ include "keydb.labels" . | indent 4 }}
+  {{- if .Values.serviceMonitor.labels }}
+{{ toYaml .Values.serviceMonitor.labels | indent 4 }}
+  {{- end }}
+  {{- if .Values.serviceMonitor.annotations }}
+  annotations:
+{{ toYaml .Values.serviceMonitor.annotations | indent 4 }}
+  {{- end }}
+spec:
+  selector:
+    matchLabels:
+{{ include "keydb.labels" . | indent 6 }}
+  namespaceSelector:
+    any: true
+  endpoints:
+  - port: redis-exporter
+    path: {{ .Values.exporter.scrapePath }}
+    {{- if .Values.serviceMonitor.interval }}
+    interval: {{ .Values.serviceMonitor.interval }}
+    {{- end }}
+    {{- if .Values.serviceMonitor.scrapeTimeout }}
+    scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout }}
+    {{- end }}
+{{- end }} 
