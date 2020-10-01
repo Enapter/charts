@@ -1,7 +1,7 @@
 nameOverride: ""
 fullnameOverride: ""
 
-image: eqalpha/keydb:x86_64_v6.0.13
+image: eqalpha/keydb:x86_64_v6.0.16
 imagePullPolicy: IfNotPresent
 
 nodes: 3

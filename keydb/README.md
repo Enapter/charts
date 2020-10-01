@@ -32,7 +32,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 
 | Parameter                       | Description                                     | Default                                  |
 |:--------------------------------|:------------------------------------------------|:-----------------------------------------|
-| `image`                         | KeyDB docker image                              | `eqalpha/keydb:x86_64_v6.0.13`           |
+| `image`                         | KeyDB docker image                              | `eqalpha/keydb:x86_64_v6.0.16`           |
 | `imagePullPolicy`               | K8s imagePullPolicy                             | `IfNotPresent`                           |
 | `nodes`                         | Number of KeyDB master pods                     | `3`                                      |
 | `password`                      | If enabled KeyDB servers are password-protected | `""`                                     |
@@ -54,10 +54,10 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `livenessProbe`                 | LivenessProbe for StatefulSet                   | Look values.yaml                         |
 | `readinessProbe`                | ReadinessProbe for StatefulSet                  | Look values.yaml                         |
 | `serviceMonitor.enabled`        | Prometheus operator ServiceMonitor              | `false`                                  |
-| `serviceMonitor.labels`         | Additional labels for ServiceMonitor            | `{}`                                  |
-| `serviceMonitor.annotations`    | Additional annotations for ServiceMonitor       | `{}`                                  |
-| `serviceMonitor.interval`       | ServiceMonitor scrape interval                  | `30s`                                  |
-| `serviceMonitor.scrapeTimeout`  | ServiceMonitor scrape timeout                   | `nil`                                  |
+| `serviceMonitor.labels`         | Additional labels for ServiceMonitor            | `{}`                                     |
+| `serviceMonitor.annotations`    | Additional annotations for ServiceMonitor       | `{}`                                     |
+| `serviceMonitor.interval`       | ServiceMonitor scrape interval                  | `30s`                                    |
+| `serviceMonitor.scrapeTimeout`  | ServiceMonitor scrape timeout                   | `nil`                                    |
 | `exporter.enabled`              | Prometheus Exporter sidecar contaner            | `false`                                  |
 | `exporter.image`                | Exporter Image                                  | `oliver006/redis_exporter:v1.8.0-alpine` |
 | `exporter.pullPolicy`           | Exporter imagePullPolicy                        | `IfNotPresent`                           |
