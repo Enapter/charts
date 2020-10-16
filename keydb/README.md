@@ -47,6 +47,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `configExtraArgs`               | Additional configuration arguments for KeyDB    | `{}`                                     |
 | `resources`                     | Resources for KeyDB containers                  | `{}`                                     |
 | `securityContext`               | SecurityContext for KeyDB pods                  | `{}`                                     |
+| `service.annotations`           | Service annotations                             | `{}`                                     |
 | `loadBalancer.enabled`          | Create LoadBalancer service                     | `false`                                  |
 | `loadBalancer.annotations`      | Annotations for LB                              | `{}`                                     |
 | `loadBalancer.extraSpec`        | Additional spec for LB                          | `{}`                                     |

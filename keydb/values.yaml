@@ -47,6 +47,9 @@ securityContext: {}
   # - name: vm.overcommit_memory
   #   value: "1"
 
+service:
+  annotations: {}
+
 loadBalancer:
   enabled: false
 
