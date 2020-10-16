@@ -4,7 +4,9 @@ kind: Service
 metadata:
   name: {{ include "keydb.fullname" . }}
   labels:
-{{ include "keydb.labels" . | nindent 4 }}
+    {{ include "keydb.labels" . | nindent 4 }}
+  annotations:
+    {{ toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: ClusterIP
   clusterIP: None
