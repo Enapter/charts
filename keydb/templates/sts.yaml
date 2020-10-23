@@ -19,6 +19,9 @@ spec:
         prometheus.io/path: "{{ .Values.exporter.scrapePath }}"
         prometheus.io/port: "{{ .Values.exporter.port }}"
         {{- end }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         {{ include "keydb.labels" . | nindent 8 }}
     spec:
