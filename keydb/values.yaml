@@ -122,7 +122,6 @@ exporter:
     httpGet:
       path: /metrics
       port: 9121
-    initialDelaySeconds: 30
 
   # Startup Probe
   startupProbe:
