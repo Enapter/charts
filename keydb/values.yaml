@@ -12,9 +12,9 @@ port: 6379
 
 threads: 2
 
-configExtraArgs: {}
-
 appendonly: "no"
+
+configExtraArgs: {}
 
 podAnnotations: {}
 
@@ -23,6 +23,32 @@ tolerations: {}
   #   key: key
   #   operator: Equal
   #   value: value
+
+additionalAffinities: {}
+  # nodeAffinity:
+  #   requiredDuringSchedulingIgnoredDuringExecution:
+  #     nodeSelectorTerms:
+  #       - matchExpressions:
+  #         - key: node_pool
+  #           operator: In
+  #           values: somenodepool
+
+# Liveness Probe
+livenessProbe:
+  tcpSocket:
+    port: keydb
+
+# Readiness Probe
+readinessProbe:
+  tcpSocket:
+    port: keydb
+
+# Startup Probe
+startupProbe:
+  tcpSocket:
+    port: keydb
+  failureThreshold: 30
+  periodSeconds: 5
 
 persistentVolume:
   enabled: true
@@ -65,25 +91,6 @@ loadBalancer:
   #   - 1.2.3.4/32
   extraSpec: {}
 
-additionalAffinities: {}
-  # nodeAffinity:
-  #   requiredDuringSchedulingIgnoredDuringExecution:
-  #     nodeSelectorTerms:
-  #       - matchExpressions:
-  #         - key: node_pool
-  #           operator: In
-  #           values: somenodepool
-
-livenessProbe:
-  tcpSocket:
-    port: keydb
-  initialDelaySeconds: 15
-
-readinessProbe:
-  tcpSocket:
-    port: keydb
-  initialDelaySeconds: 10
-
 # Prometheus-operator ServiceMonitor
 serviceMonitor:
   # Redis exporter must also be enabled
@@ -96,7 +103,7 @@ serviceMonitor:
 # Redis exporter
 exporter:
   enabled: false
-  image: oliver006/redis_exporter:v1.8.0-alpine
+  image: oliver006/redis_exporter:v1.12.1-alpine
   pullPolicy: IfNotPresent
 
   # Prometheus port & scrape path
@@ -108,14 +115,20 @@ exporter:
     httpGet:
       path: /metrics
       port: 9121
-    initialDelaySeconds: 15
 
   # Readiness Probe
   readinessProbe:
     httpGet:
       path: /metrics
       port: 9121
-    initialDelaySeconds: 10
+
+  # Startup Probe
+  startupProbe:
+    httpGet:
+      path: /metrics
+      port: 9121
+    failureThreshold: 30
+    periodSeconds: 5
 
   # CPU/Memory resource limits/requests
   resources: {}

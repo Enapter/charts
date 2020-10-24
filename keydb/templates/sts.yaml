@@ -19,8 +19,8 @@ spec:
         prometheus.io/path: "{{ .Values.exporter.scrapePath }}"
         prometheus.io/port: "{{ .Values.exporter.port }}"
         {{- end }}
-        {{- with .Values.podAnnotations }}
-        {{- toYaml . | nindent 8 }}
+        {{- if .Values.podAnnotations }}
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
         {{- end }}
       labels:
         {{ include "keydb.labels" . | nindent 8 }}
@@ -42,7 +42,7 @@ spec:
                   - {{ .Release.Name }}
               topologyKey: "kubernetes.io/hostname"
         {{- if .Values.additionalAffinities }}
-        {{ toYaml .Values.additionalAffinities | nindent 8 }}
+        {{- toYaml .Values.additionalAffinities | nindent 8 }}
         {{- end }}
       containers:
       - name: keydb
@@ -56,14 +56,18 @@ spec:
           protocol: TCP
         {{- if .Values.livenessProbe }}
         livenessProbe:
-          {{ toYaml .Values.livenessProbe | nindent 10 }}
+          {{- toYaml .Values.livenessProbe | nindent 10 }}
         {{- end }}
         {{- if .Values.readinessProbe }}
         readinessProbe:
-          {{ toYaml .Values.readinessProbe | nindent 10 }}
+          {{- toYaml .Values.readinessProbe | nindent 10 }}
+        {{- end }}
+        {{- if .Values.startupProbe }}
+        startupProbe:
+          {{- toYaml .Values.startupProbe | nindent 10 }}
         {{- end }}
         resources:
-          {{ toYaml .Values.resources | nindent 10 }}
+          {{- toYaml .Values.resources | nindent 10 }}
         volumeMounts:
         - name: keydb-data
           mountPath: /data
@@ -87,23 +91,27 @@ spec:
         {{- end }}
         {{- if .Values.exporter.livenessProbe }}
         livenessProbe:
-          {{ toYaml .Values.exporter.livenessProbe | nindent 10 }}
+          {{- toYaml .Values.exporter.livenessProbe | nindent 10 }}
         {{- end }}
         {{- if .Values.exporter.readinessProbe }}
         readinessProbe:
-          {{ toYaml .Values.exporter.readinessProbe | nindent 10 }}
+          {{- toYaml .Values.exporter.readinessProbe | nindent 10 }}
+        {{- end }}
+        {{- if .Values.exporter.startupProbe }}
+        startupProbe:
+          {{- toYaml .Values.exporter.startupProbe | nindent 10 }}
         {{- end }}
         resources:
-          {{ toYaml .Values.exporter.resources | nindent 10 }}
+          {{- toYaml .Values.exporter.resources | nindent 10 }}
         ports:
         - name: redis-exporter
           containerPort: {{ .Values.exporter.port }}
       {{- end }}
       securityContext:
-        {{ toYaml .Values.securityContext | nindent 8 }}
+        {{- toYaml .Values.securityContext | nindent 8 }}
       {{- if .Values.tolerations }}
       tolerations:
-        {{ toYaml .Values.tolerations | nindent 8 }}
+        {{- toYaml .Values.tolerations | nindent 8 }}
       {{- end }}
       volumes:
       - name: utils
@@ -123,12 +131,12 @@ spec:
       name: keydb-data
       annotations:
       {{- if .Values.persistentVolume.annotations }}
-        {{ toYaml .Values.persistentVolume.annotations | nindent 8 }}
+        {{- toYaml .Values.persistentVolume.annotations | nindent 8 }}
       {{- end }}
       labels:
     spec:
       accessModes:
-        {{ toYaml .Values.persistentVolume.accessModes | nindent 8 }}
+        {{- toYaml .Values.persistentVolume.accessModes | nindent 8 }}
       resources:
         requests:
           storage: {{ .Values.persistentVolume.size }}
