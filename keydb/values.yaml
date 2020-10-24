@@ -16,6 +16,8 @@ configExtraArgs: {}
 
 appendonly: "no"
 
+podAnnotations: {}
+
 tolerations: {}
   # - effect: NoSchedule
   #   key: key
