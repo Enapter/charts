@@ -117,7 +117,7 @@ spec:
       - name: utils
         secret:
           secretName: {{ include "keydb.fullname" . }}-utils
-          defaultMode: 0700
+          defaultMode: 0755
           items:
           - key: server.sh
             path: server.sh
