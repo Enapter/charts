@@ -44,6 +44,10 @@ spec:
         {{- if .Values.additionalAffinities }}
         {{- toYaml .Values.additionalAffinities | nindent 8 }}
         {{- end }}
+      {{- if .Values.extraInitContainers }}
+      initContainers:
+      {{- toYaml .Values.extraInitContainers | nindent 6 }}
+      {{- end }}
       containers:
       - name: keydb
         image: {{ .Values.image }}
@@ -107,6 +111,9 @@ spec:
         - name: redis-exporter
           containerPort: {{ .Values.exporter.port }}
       {{- end }}
+      {{- if .Values.extraContainers }}
+      {{- toYaml .Values.extraContainers | nindent 6 }}
+      {{- end }}
       securityContext:
         {{- toYaml .Values.securityContext | nindent 8 }}
       {{- if .Values.tolerations }}
@@ -124,6 +131,9 @@ spec:
       {{- if not .Values.persistentVolume.enabled }}
       - name: keydb-data
         emptyDir: {}
+      {{- end }}
+      {{- if .Values.extraVolumes }}
+      {{- toYaml .Values.extraVolumes | nindent 6 }}
       {{- end }}
   {{- if .Values.persistentVolume.enabled }}
   volumeClaimTemplates:

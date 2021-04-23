@@ -33,6 +33,22 @@ additionalAffinities: {}
   #           operator: In
   #           values: somenodepool
 
+# Additional init containers
+extraInitContainers: []
+
+# Additional sidecar containers
+extraContainers: []
+# - name: backup
+#   image: minio/mc:latest
+
+# Volumes that can be used in init and sidecar containers
+extraVolumes: []
+#  - name: volume-from-secret
+#    secret:
+#      secretName: secret-to-mount
+#  - name: empty-dir-volume
+#    emptyDir: {}
+
 # Liveness Probe
 livenessProbe:
   tcpSocket:
