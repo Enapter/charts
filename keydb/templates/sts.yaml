@@ -6,7 +6,7 @@ metadata:
     {{ include "keydb.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.nodes }}
-  serviceName: {{ include "keydb.fullname" . }}
+  serviceName: {{ include "keydb.fullname" . }}-headless
   selector:
     matchLabels:
       {{ include "keydb.selectorLabels" . | nindent 6 }}
