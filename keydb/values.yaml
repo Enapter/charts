@@ -120,7 +120,7 @@ serviceMonitor:
 # Redis exporter
 exporter:
   enabled: false
-  image: oliver006/redis_exporter:v1.12.1-alpine
+  image: oliver006/redis_exporter:v1.23.1-alpine
   pullPolicy: IfNotPresent
 
   # Prometheus port & scrape path
@@ -130,19 +130,19 @@ exporter:
   # Liveness Probe
   livenessProbe:
     httpGet:
-      path: /metrics
+      path: /health
       port: 9121
 
   # Readiness Probe
   readinessProbe:
     httpGet:
-      path: /metrics
+      path: /health
       port: 9121
 
   # Startup Probe
   startupProbe:
     httpGet:
-      path: /metrics
+      path: /health
       port: 9121
     failureThreshold: 30
     periodSeconds: 5
