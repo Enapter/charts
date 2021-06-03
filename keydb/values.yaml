@@ -125,7 +125,7 @@ exporter:
 
   # Prometheus port & scrape path
   port: 9121
-  scrapePath: /health
+  scrapePath: /metrics
 
   # Liveness Probe
   livenessProbe:
