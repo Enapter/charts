@@ -36,6 +36,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `imagePullPolicy`               | K8s imagePullPolicy                                | `IfNotPresent`                            |
 | `nodes`                         | Number of KeyDB master pods                        | `3`                                       |
 | `password`                      | If enabled KeyDB servers are password-protected    | `""`                                      |
+| `existingSecret`                | If enabled exporter password is taken from existing secret  | `""`                             |
 | `port`                          | KeyDB service port clients connect to              | `6379`                                    |
 | `threads`                       | KeyDB server-threads per node                      | `2`                                       |
 | `appendonly`                    | KeyDB appendonly setting                           | `"no"`                                    |
@@ -74,3 +75,16 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `exporter.startupProbe`         | StartupProbe for sidecar Prometheus exporter       | Look values.yaml                          |
 | `exporter.resources`            | Resources for sidecar Prometheus container         | `{}`                                      |
 | `exporter.extraArgs`            | Additional arguments for exporter                  | `{}`                                      |
+
+## Using existingSecret
+
+When definining existingSecret (by default is "") password for Prometheus exporter is taken from that secret name, instead of being exposed as environemnt variable. \
+Secret key must be *password*. \
+Example of of such secret: 
+```bash
+kubectl create secret generic keydb-password --from-literal=password=KEYDB_PASSWORD
+```
+Definition of existingSecret in that case:
+```yaml
+existingSecret: keydb-password
+```
