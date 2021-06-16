@@ -7,6 +7,7 @@ imagePullPolicy: IfNotPresent
 nodes: 3
 
 password: ""
+existingSecret: ""
 
 port: 6379
 
@@ -32,6 +33,22 @@ additionalAffinities: {}
   #         - key: node_pool
   #           operator: In
   #           values: somenodepool
+
+# Additional init containers
+extraInitContainers: []
+
+# Additional sidecar containers
+extraContainers: []
+# - name: backup
+#   image: minio/mc:latest
+
+# Volumes that can be used in init and sidecar containers
+extraVolumes: []
+#  - name: volume-from-secret
+#    secret:
+#      secretName: secret-to-mount
+#  - name: empty-dir-volume
+#    emptyDir: {}
 
 # Liveness Probe
 livenessProbe:
@@ -104,7 +121,7 @@ serviceMonitor:
 # Redis exporter
 exporter:
   enabled: false
-  image: oliver006/redis_exporter:v1.12.1-alpine
+  image: oliver006/redis_exporter:v1.23.1-alpine
   pullPolicy: IfNotPresent
 
   # Prometheus port & scrape path
@@ -114,19 +131,19 @@ exporter:
   # Liveness Probe
   livenessProbe:
     httpGet:
-      path: /metrics
+      path: /health
       port: 9121
 
   # Readiness Probe
   readinessProbe:
     httpGet:
-      path: /metrics
+      path: /health
       port: 9121
 
   # Startup Probe
   startupProbe:
     httpGet:
-      path: /metrics
+      path: /health
       port: 9121
     failureThreshold: 30
     periodSeconds: 5

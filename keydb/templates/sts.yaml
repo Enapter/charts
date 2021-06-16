@@ -6,7 +6,7 @@ metadata:
     {{ include "keydb.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.nodes }}
-  serviceName: {{ include "keydb.fullname" . }}
+  serviceName: {{ include "keydb.fullname" . }}-headless
   selector:
     matchLabels:
       {{ include "keydb.selectorLabels" . | nindent 6 }}
@@ -44,6 +44,10 @@ spec:
         {{- if .Values.additionalAffinities }}
         {{- toYaml .Values.additionalAffinities | nindent 8 }}
         {{- end }}
+      {{- if .Values.extraInitContainers }}
+      initContainers:
+      {{- toYaml .Values.extraInitContainers | nindent 6 }}
+      {{- end }}
       containers:
       - name: keydb
         image: {{ .Values.image }}
@@ -85,7 +89,13 @@ spec:
         env:
         - name: REDIS_ADDR
           value: redis://localhost:6379
-        {{- if .Values.password }}
+        {{- if and .Values.password .Values.existingSecret }}
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.existingSecret }}
+              key: password
+        {{- else if .Values.password }}
         - name: REDIS_PASSWORD
           value: "{{ .Values.password }}"
         {{- end }}
@@ -107,6 +117,9 @@ spec:
         - name: redis-exporter
           containerPort: {{ .Values.exporter.port }}
       {{- end }}
+      {{- if .Values.extraContainers }}
+      {{- toYaml .Values.extraContainers | nindent 6 }}
+      {{- end }}
       securityContext:
         {{- toYaml .Values.securityContext | nindent 8 }}
       {{- if .Values.tolerations }}
@@ -117,13 +130,16 @@ spec:
       - name: utils
         secret:
           secretName: {{ include "keydb.fullname" . }}-utils
-          defaultMode: 0700
+          defaultMode: 0755
           items:
           - key: server.sh
             path: server.sh
       {{- if not .Values.persistentVolume.enabled }}
       - name: keydb-data
         emptyDir: {}
+      {{- end }}
+      {{- if .Values.extraVolumes }}
+      {{- toYaml .Values.extraVolumes | nindent 6 }}
       {{- end }}
   {{- if .Values.persistentVolume.enabled }}
   volumeClaimTemplates:

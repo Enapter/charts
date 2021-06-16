@@ -1,22 +1,19 @@
+# Headless service
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "keydb.fullname" . }}
+  name: {{ include "keydb.fullname" . }}-headless
   labels:
     {{ include "keydb.labels" . | nindent 4 }}
   annotations:
     {{ toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: ClusterIP
+  clusterIP: None
   ports:
   - name: server
     port: {{ .Values.port | int }}
     protocol: TCP
     targetPort: keydb
-  - name: redis-exporter
-    port: {{ .Values.exporter.port | int }}
-    protocol: TCP
-    targetPort: redis-exporter
   selector:
     {{ include "keydb.selectorLabels" . | nindent 4 }}
-  sessionAffinity: ClientIP
