@@ -54,6 +54,14 @@ spec:
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         command:
         - /utils/server.sh
+        {{- if .Values.existingSecret }}
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.existingSecret }}
+              key: password
+        {{- end }}
         ports:
         - name: keydb
           containerPort: 6379
@@ -89,7 +97,7 @@ spec:
         env:
         - name: REDIS_ADDR
           value: redis://localhost:6379
-        {{- if and .Values.password .Values.existingSecret }}
+        {{- if .Values.existingSecret }}
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
