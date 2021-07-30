@@ -30,7 +30,7 @@ helm install keydb enapter/keydb
 
 The following table lists the configurable parameters of the KeyDB chart and their default values.
 
-| Parameter                       | Description                                             | Default                                   |
+| Parameter                       | Description                                        | Default                                   |
 |:--------------------------------|:---------------------------------------------------|:------------------------------------------|
 | `image`                         | KeyDB docker image                                 | `eqalpha/keydb:x86_64_v6.0.16`            |
 | `imagePullPolicy`               | K8s imagePullPolicy                                | `IfNotPresent`                            |
@@ -39,7 +39,10 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `existingSecret`                | If enabled password is taken from secret           | `""`                                      |
 | `port`                          | KeyDB service port clients connect to              | `6379`                                    |
 | `threads`                       | KeyDB server-threads per node                      | `2`                                       |
-| `appendonly`                    | KeyDB appendonly setting                           | `"no"`                                    |
+| `multiMaster`                   | KeyDB multi-master setup                           | `yes`                                     |
+| `activeReplicas`                | KeyDB active replication setup                     | `yes`                                     |
+| `protectedMode`                 | KeyDB protection mode                              | `no`                                      |
+| `appendonly`                    | KeyDB appendonly setting                           | `no`                                      |
 | `configExtraArgs`               | Additional configuration arguments for KeyDB       | `{}`                                      |
 | `podAnnotations`                | KeyDB pods annotations                             | `{}`                                      |
 | `tolerations`                   | KeyDB tolerations setting                          | `{}`                                      |
