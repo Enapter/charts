@@ -13,6 +13,9 @@ port: 6379
 
 threads: 2
 
+multiMaster: "no"
+activeReplicas: "yes"
+protectionMode: "no"
 appendonly: "no"
 
 configExtraArgs: {}
