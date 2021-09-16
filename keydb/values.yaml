@@ -18,6 +18,8 @@ activeReplicas: "yes"
 protectedMode: "no"
 appendonly: "no"
 
+annotations: {}
+
 configExtraArgs: {}
 
 podAnnotations: {}

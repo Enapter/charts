@@ -44,6 +44,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `protectedMode`                 | KeyDB protection mode                              | `no`                                      |
 | `appendonly`                    | KeyDB appendonly setting                           | `no`                                      |
 | `configExtraArgs`               | Additional configuration arguments for KeyDB       | `{}`                                      |
+| `annotations`                   | KeyDB StatefulSet annotations                      | `{}`                                      |
 | `podAnnotations`                | KeyDB pods annotations                             | `{}`                                      |
 | `tolerations`                   | KeyDB tolerations setting                          | `{}`                                      |
 | `additionalAffinities`          | Additional affinities for StatefulSet              | `{}`                                      |
