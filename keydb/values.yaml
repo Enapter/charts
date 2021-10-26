@@ -29,6 +29,9 @@ tolerations: {}
   #   key: key
   #   operator: Equal
   #   value: value
+  
+nodeSelector: {}
+  # topology.kubernetes.io/region: some-region
 
 additionalAffinities: {}
   # nodeAffinity:

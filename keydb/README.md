@@ -47,6 +47,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `annotations`                   | KeyDB StatefulSet annotations                      | `{}`                                      |
 | `podAnnotations`                | KeyDB pods annotations                             | `{}`                                      |
 | `tolerations`                   | KeyDB tolerations setting                          | `{}`                                      |
+| `nodeSelector`                  | KeyDB nodeSelector setting                         | `{}`                                      |
 | `additionalAffinities`          | Additional affinities for StatefulSet              | `{}`                                      |
 | `extraInitContainers`           | Additional init containers for StatefulSet         | `[]`                                      |
 | `extraContainers`               | Additional sidecar containers for StatefulSet      | `[]`                                      |
