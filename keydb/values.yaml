@@ -29,7 +29,7 @@ tolerations: {}
   #   key: key
   #   operator: Equal
   #   value: value
-  
+
 nodeSelector: {}
   # topology.kubernetes.io/region: some-region
 
@@ -75,6 +75,15 @@ startupProbe:
     port: keydb
   failureThreshold: 30
   periodSeconds: 5
+
+# Lifecycle Hooks
+lifecycle: {}
+  # preStop:
+  #   exec:
+  #     command:
+  #       - sh
+  #       - -c
+  #       - "sleep 15; kill 1"
 
 persistentVolume:
   enabled: true
