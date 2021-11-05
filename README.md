@@ -18,5 +18,5 @@ helm-cr upload --config ~/.cr.yaml
 
 ```console
 git checkout gh-pages
-helm-cr index --config ~/.cr.yaml -i ./index.yaml
+helm-cr index --config ~/.cr.yaml -i ./index.yaml -c https://enapter.github.io/charts/
 ```
