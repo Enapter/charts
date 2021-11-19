@@ -11,7 +11,7 @@ data:
     [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
     response=$(
       timeout -s 3 $1 \
-      redis-cli \
+      keydb-cli \
         -h localhost \
         -p $REDIS_PORT \
         ping
@@ -25,7 +25,7 @@ data:
     [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
     response=$(
       timeout -s 3 $1 \
-      redis-cli \
+      keydb-cli \
         -h localhost \
         -p $REDIS_PORT \
         ping
