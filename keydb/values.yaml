@@ -60,14 +60,30 @@ extraVolumes: []
 
 # Liveness Probe
 livenessProbe:
-  tcpSocket:
-    port: keydb
+  enabled: true
+  initialDelaySeconds: 20
+  periodSeconds: 5
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 5
+
+customLivenessProbe: {}
+#  tcpSocket:
+#    port: keydb
 
 # Readiness Probe
 readinessProbe:
-  tcpSocket:
-    port: keydb
-  initialDelaySeconds: 30
+  enabled: true
+  initialDelaySeconds: 20
+  periodSeconds: 5
+  timeoutSeconds: 1
+  successThreshold: 1
+  failureThreshold: 5
+
+customReadinessProbe: {}
+#  tcpSocket:
+#    port: keydb
+#  initialDelaySeconds: 30
 
 # Startup Probe
 startupProbe:
