@@ -37,4 +37,4 @@ data:
 
   cleanup_local_data.sh: |-
     #!/bin/bash
-    find /data/ -type f -name 'temp-*.rdb' -mmin -30 -delete
+    find /data/ -type f -name 'temp-*.rdb' -mmin +60 -delete
