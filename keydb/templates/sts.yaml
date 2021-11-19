@@ -58,17 +58,22 @@ spec:
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         command:
         - /utils/server.sh
-        {{- if .Values.existingSecret }}
         env:
+        - name: REDIS_PORT
+          value: {{ .Values.port | quote }}
+        {{- if .Values.existingSecret }}
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ .Values.existingSecret }}
               key: password
+        {{- else if .Values.password }}
+        - name: REDIS_PASSWORD
+          value: "{{ .Values.password }}"
         {{- end }}
         ports:
         - name: keydb
-          containerPort: 6379
+          containerPort: {{ .Values.port | int }}
           protocol: TCP
         {{- if .Values.livenessProbe }}
         livenessProbe:
@@ -89,6 +94,8 @@ spec:
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
         volumeMounts:
+        - name: health
+          mountPath: /health
         - name: keydb-data
           mountPath: /data
         - name: utils
@@ -104,7 +111,9 @@ spec:
         {{- end }}
         env:
         - name: REDIS_ADDR
-          value: redis://localhost:6379
+          value: redis://localhost:{{ .Values.port | int }}
+        - name: REDIS_PORT
+          value: {{ .Values.port | quote }}
         {{- if .Values.existingSecret }}
         - name: REDIS_PASSWORD
           valueFrom:
@@ -147,6 +156,10 @@ spec:
         {{- toYaml .Values.nodeSelector | nindent 8 }}
       {{- end }}
       volumes:
+      - name: health
+        configMap:
+          name: {{ printf "%s-health" (include "keydb.fullname" . ) }}
+          defaultMode: 0755
       - name: utils
         secret:
           secretName: {{ include "keydb.fullname" . }}-utils
