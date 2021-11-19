@@ -8,6 +8,11 @@ data:
   ping_readiness_local.sh: |-
     #!/bin/bash
 
+    script_dir="$(dirname "$0")"
+    exit_status=0
+
+    "$script_dir/cleanup_local_data.sh" || exit_status=$?
+
     [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
     response=$(
       timeout -s 3 $1 \
@@ -20,8 +25,14 @@ data:
       echo "$response"
       exit 1
     fi
+    exit $exit_status
+
   ping_liveness_local.sh: |-
     #!/bin/bash
+
+    script_dir="$(dirname "$0")"
+    exit_status=0
+
     [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
     response=$(
       timeout -s 3 $1 \
@@ -34,7 +45,13 @@ data:
       echo "$response"
       exit 1
     fi
+    exit $exit_status
 
   cleanup_local_data.sh: |-
     #!/bin/bash
-    find /data/ -type f -name 'temp-*.rdb' -mmin +60 -delete
+
+    exit_status=0
+
+    find /data/ -type f -name temp-*.rdb  -cmin -30 -delete
+
+    exit $exit_status
