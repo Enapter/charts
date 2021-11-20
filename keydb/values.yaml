@@ -186,3 +186,8 @@ exporter:
 
   # Additional args for redis exporter
   extraArgs: {}
+
+scripts:
+  cleanup:
+    enabled: false
+    minutes: 60

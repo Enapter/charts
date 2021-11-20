@@ -11,7 +11,10 @@ data:
     script_dir="$(dirname "$0")"
     exit_status=0
 
+{{- if ((.Values.scripts).cleanup).enabled }}
+
     "$script_dir/cleanup_local_data.sh" || exit_status=$?
+{{- end }}
 
     [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
     response=$(
@@ -47,11 +50,14 @@ data:
     fi
     exit $exit_status
 
+{{- if ((.Values.scripts).cleanup).enabled }}
+
   cleanup_local_data.sh: |-
     #!/bin/bash
 
     exit_status=0
 
-    find /data/ -type f -name temp-*.rdb  -cmin -30 -delete
+    find /data/ -type f -name temp-*.rdb  -mmin +{{ default 90  ((.Values.scripts).cleanup).minutes}} -delete
 
     exit $exit_status
+{{- end }}
