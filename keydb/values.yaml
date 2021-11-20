@@ -188,6 +188,9 @@ exporter:
   extraArgs: {}
 
 scripts:
+  enabled: false
+  # CPU/Memory resource limits/requests
+  resources: {}
   cleanup:
     enabled: false
     minutes: 60

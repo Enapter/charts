@@ -8,14 +8,6 @@ data:
   ping_readiness_local.sh: |-
     #!/bin/bash
 
-    script_dir="$(dirname "$0")"
-    exit_status=0
-
-{{- if ((.Values.scripts).cleanup).enabled }}
-
-    "$script_dir/cleanup_local_data.sh" || exit_status=$?
-{{- end }}
-
     [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
     response=$(
       timeout -s 3 $1 \
@@ -28,13 +20,10 @@ data:
       echo "$response"
       exit 1
     fi
-    exit $exit_status
+    exit 0
 
   ping_liveness_local.sh: |-
     #!/bin/bash
-
-    script_dir="$(dirname "$0")"
-    exit_status=0
 
     [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
     response=$(
@@ -48,7 +37,24 @@ data:
       echo "$response"
       exit 1
     fi
+    exit 0
+
+{{- if (.Values.scripts).enabled }}
+
+  scripts_local.sh: |-
+    #!/bin/bash
+
+    script_dir="$(dirname "$0")"
+    exit_status=0
+    while true
+    do
+{{- if ((.Values.scripts).cleanup).enabled }}
+      "$script_dir/cleanup_local_data.sh" || exit_status=$?
+{{- end }}
+      sleep 60
+    done
     exit $exit_status
+{{- end }}
 
 {{- if ((.Values.scripts).cleanup).enabled }}
 
