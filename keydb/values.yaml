@@ -61,36 +61,38 @@ extraVolumes: []
 # Liveness Probe
 livenessProbe:
   enabled: true
+  custom: {}
+  #  tcpSocket:
+  #    port: keydb
+  #  initialDelaySeconds: 30
   initialDelaySeconds: 20
   periodSeconds: 5
   timeoutSeconds: 5
   successThreshold: 1
   failureThreshold: 5
 
-customLivenessProbe: {}
-#  tcpSocket:
-#    port: keydb
-
 # Readiness Probe
 readinessProbe:
   enabled: true
+  custom: {}
+  #  tcpSocket:
+  #    port: keydb
+  #  initialDelaySeconds: 30
   initialDelaySeconds: 20
   periodSeconds: 5
   timeoutSeconds: 1
   successThreshold: 1
   failureThreshold: 5
 
-customReadinessProbe: {}
-#  tcpSocket:
-#    port: keydb
-#  initialDelaySeconds: 30
-
 # Startup Probe
 startupProbe:
-  tcpSocket:
-    port: keydb
-  failureThreshold: 30
+  enabled: true
+  custom: {}
+  #  tcpSocket:
+  #    port: keydb
   periodSeconds: 5
+  timeoutSeconds: 1
+  failureThreshold: 24
 
 # Lifecycle Hooks
 lifecycle: {}
@@ -178,7 +180,7 @@ exporter:
     httpGet:
       path: /health
       port: 9121
-    failureThreshold: 30
+    failureThreshold: 24
     periodSeconds: 5
 
   # CPU/Memory resource limits/requests
@@ -192,5 +194,5 @@ scripts:
   # CPU/Memory resource limits/requests
   resources: {}
   cleanup:
-    enabled: false
+    enabled: true
     minutes: 60

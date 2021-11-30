@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "keydb.fullname" . }}-health
+  labels:
+    {{ include "keydb.labels" . | nindent 4 }}
+data:
+  ping_readiness_local.sh: |-
+    #!/bin/bash
+
+    set -eo pipefail
+
+    [[ -n "${REDIS_PASSWORD}" ]] && export REDISCLI_AUTH="${REDIS_PASSWORD}"
+    response="$(
+      timeout -s 3 "${1}" \
+      keydb-cli \
+        -h localhost \
+        -p "${REDIS_PORT}" \
+        ping
+    )"
+    if [ "${response}" != "PONG" ]; then
+      echo "${response}"
+      exit 1
+    fi
+
+  ping_liveness_local.sh: |-
+    #!/bin/bash
+
+    set -eo pipefail
+
+    [[ -n "${REDIS_PASSWORD}" ]] && export REDISCLI_AUTH="${REDIS_PASSWORD}"
+    response="$(
+      timeout -s 3 "${1}" \
+      keydb-cli \
+        -h localhost \
+        -p "${REDIS_PORT}" \
+        ping
+    )"
+    if [ "${response}" != "PONG" ] && [ "${response}" != "LOADING Redis is loading the dataset in memory" ]; then
+      echo "${response}"
+      exit 1
+    fi
+
+{{- if .Values.scripts.enabled }}
+
+  scripts_local.sh: |-
+    #!/bin/bash
+
+    set -eo pipefail
+
+    script_dir="$(dirname "$0")"
+    while true; do
+{{- if .Values.scripts.cleanup.enabled }}
+      "${script_dir}/cleanup_local_data.sh" || exit $?
+{{- end }}
+      sleep 60
+    done
+{{- end }}
+
+{{- if .Values.scripts.cleanup.enabled }}
+
+  cleanup_local_data.sh: |-
+    #!/bin/bash
+
+    set -eo pipefail
+
+    find /data/ -type f -name temp-*.rdb  -mmin +{{ .Values.scripts.cleanup.minutes }} -delete
+{{- end }}

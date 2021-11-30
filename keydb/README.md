@@ -32,7 +32,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 
 | Parameter                       | Description                                        | Default                                   |
 |:--------------------------------|:---------------------------------------------------|:------------------------------------------|
-| `image`                         | KeyDB docker image                                 | `eqalpha/keydb:x86_64_v6.2.0`             |
+| `image`                         | KeyDB docker image                                 | `eqalpha/keydb:x86_64_v6.2.1`             |
 | `imagePullPolicy`               | K8s imagePullPolicy                                | `IfNotPresent`                            |
 | `nodes`                         | Number of KeyDB master pods                        | `3`                                       |
 | `password`                      | If enabled KeyDB servers are password-protected    | `""`                                      |
@@ -52,14 +52,15 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `extraInitContainers`           | Additional init containers for StatefulSet         | `[]`                                      |
 | `extraContainers`               | Additional sidecar containers for StatefulSet      | `[]`                                      |
 | `extraVolumes`                  | Additional volumes for init and sidecar containers | `[]`                                      |
-| `livenessProbe`                 | LivenessProbe for KeyDB pods                       | Look values.yaml                          |
-| `readinessProbe`                | ReadinessProbe for KeyDB pods                      | Look values.yaml                          |
-| `startupProbe`                  | StartupProbe for KeyDB pods                        | Look values.yaml                          |
+| `livenessProbe.custom`          | Custom LivenessProbe for KeyDB pods                | `{}`                                      |
+| `readinessProbe.custom`         | Custom ReadinessProbe for KeyDB pods               | `{}`                                      |
+| `startupProbe.custom`           | Custom StartupProbe for KeyDB pods                 | `{}`                                      |
 | `persistentVolume.enabled`      | Should PVC be created via volumeClaimTemplates     | `true`                                    |
 | `persistentVolume.accessModes`  | Volume access modes                                | `[ReadWriteOnce]`                         |
 | `persistentVolume.size`         | Size of the volume                                 | `1Gi`                                     |
 | `persistentVolume.storageClass` | StorageClassName for volume                        | ``                                        |
 | `resources`                     | Resources for KeyDB containers                     | `{}`                                      |
+| `scripts.enabled`               | Turn on health util scripts                        | `false`                                   |
 | `securityContext`               | SecurityContext for KeyDB pods                     | `{}`                                      |
 | `service.annotations`           | Service annotations                                | `{}`                                      |
 | `loadBalancer.enabled`          | Create LoadBalancer service                        | `false`                                   |
@@ -71,7 +72,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `serviceMonitor.interval`       | ServiceMonitor scrape interval                     | `30s`                                     |
 | `serviceMonitor.scrapeTimeout`  | ServiceMonitor scrape timeout                      | `nil`                                     |
 | `exporter.enabled`              | Prometheus Exporter sidecar contaner               | `false`                                   |
-| `exporter.image`                | Exporter Image                                     | `oliver006/redis_exporter:v1.12.1-alpine` |
+| `exporter.image`                | Exporter Image                                     | `oliver006/redis_exporter:v1.31.4-alpine` |
 | `exporter.pullPolicy`           | Exporter imagePullPolicy                           | `IfNotPresent`                            |
 | `exporter.port`                 | `prometheus.io/port`                               | `9121`                                    |
 | `exporter.scrapePath`           | `prometheus.io/path`                               | `/metrics`                                |
