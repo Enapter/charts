@@ -58,25 +58,55 @@ spec:
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         command:
         - /utils/server.sh
-        {{- if .Values.existingSecret }}
         env:
+        - name: REDIS_PORT
+          value: {{ .Values.port | quote }}
+        {{- if .Values.existingSecret }}
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ .Values.existingSecret }}
               key: password
+        {{- else if .Values.password }}
+        - name: REDIS_PASSWORD
+          value: "{{ .Values.password }}"
         {{- end }}
         ports:
         - name: keydb
-          containerPort: 6379
+          containerPort: {{ .Values.port | int }}
           protocol: TCP
-        {{- if .Values.livenessProbe }}
+        {{- if .Values.livenessProbe.enabled }}
         livenessProbe:
-          {{- toYaml .Values.livenessProbe | nindent 10 }}
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          # One second longer than command timeout should prevent generation of zombie processes.
+          timeoutSeconds: {{ add1 .Values.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+          exec:
+            command:
+              - sh
+              - -c
+              - /health/ping_liveness_local.sh {{ .Values.livenessProbe.timeoutSeconds }}
+        {{- else if .Values.customLivenessProbe }}
+        livenessProbe: {{- toYaml .Values.customLivenessProbe | nindent 10 }}
         {{- end }}
-        {{- if .Values.readinessProbe }}
+        {{- if .Values.readinessProbe.enabled }}
         readinessProbe:
-          {{- toYaml .Values.readinessProbe | nindent 10 }}
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          # One second longer than command timeout should prevent generation of zombie processes.
+          timeoutSeconds: {{ add1 .Values.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+          exec:
+            command:
+              - sh
+              - -c
+              - /health/ping_readiness_local.sh {{ .Values.readinessProbe.timeoutSeconds }}
+        {{- else if .Values.customReadinessProbe }}
+        readinessProbe:
+          {{- toYaml .Values.customReadinessProbe | nindent 10 }}
         {{- end }}
         {{- if .Values.startupProbe }}
         startupProbe:
@@ -89,6 +119,8 @@ spec:
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
         volumeMounts:
+        - name: health
+          mountPath: /health
         - name: keydb-data
           mountPath: /data
         - name: utils
@@ -104,7 +136,9 @@ spec:
         {{- end }}
         env:
         - name: REDIS_ADDR
-          value: redis://localhost:6379
+          value: redis://localhost:{{ .Values.port | int }}
+        - name: REDIS_PORT
+          value: {{ .Values.port | quote }}
         {{- if .Values.existingSecret }}
         - name: REDIS_PASSWORD
           valueFrom:
@@ -133,6 +167,33 @@ spec:
         - name: redis-exporter
           containerPort: {{ .Values.exporter.port }}
       {{- end }}
+      {{- if (.Values.scripts).enabled }}
+      - name: scripts
+        image: {{ .Values.image }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        command:
+        - /health/scripts_local.sh
+        env:
+        - name: REDIS_PORT
+          value: {{ .Values.port | quote }}
+        {{- if .Values.existingSecret }}
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.existingSecret }}
+              key: password
+        {{- else if .Values.password }}
+        - name: REDIS_PASSWORD
+          value: "{{ .Values.password }}"
+        {{- end }}
+        resources:
+          {{- toYaml .Values.scripts.resources | nindent 10 }}
+        volumeMounts:
+        - name: health
+          mountPath: /health
+        - name: keydb-data
+          mountPath: /data
+      {{- end }}
       {{- if .Values.extraContainers }}
       {{- toYaml .Values.extraContainers | nindent 6 }}
       {{- end }}
@@ -147,6 +208,10 @@ spec:
         {{- toYaml .Values.nodeSelector | nindent 8 }}
       {{- end }}
       volumes:
+      - name: health
+        configMap:
+          name: {{ printf "%s-health" (include "keydb.fullname" . ) }}
+          defaultMode: 0755
       - name: utils
         secret:
           secretName: {{ include "keydb.fullname" . }}-utils

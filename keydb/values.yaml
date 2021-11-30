@@ -1,7 +1,7 @@
 nameOverride: ""
 fullnameOverride: ""
 
-image: eqalpha/keydb:x86_64_v6.2.0
+image: eqalpha/keydb:x86_64_v6.2.1
 imagePullPolicy: IfNotPresent
 
 nodes: 3
@@ -60,14 +60,30 @@ extraVolumes: []
 
 # Liveness Probe
 livenessProbe:
-  tcpSocket:
-    port: keydb
+  enabled: true
+  initialDelaySeconds: 20
+  periodSeconds: 5
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 5
+
+customLivenessProbe: {}
+#  tcpSocket:
+#    port: keydb
 
 # Readiness Probe
 readinessProbe:
-  tcpSocket:
-    port: keydb
-  initialDelaySeconds: 30
+  enabled: true
+  initialDelaySeconds: 20
+  periodSeconds: 5
+  timeoutSeconds: 1
+  successThreshold: 1
+  failureThreshold: 5
+
+customReadinessProbe: {}
+#  tcpSocket:
+#    port: keydb
+#  initialDelaySeconds: 30
 
 # Startup Probe
 startupProbe:
@@ -138,7 +154,7 @@ serviceMonitor:
 # Redis exporter
 exporter:
   enabled: false
-  image: oliver006/redis_exporter:v1.23.1-alpine
+  image: oliver006/redis_exporter:v1.31.4-alpine
   pullPolicy: IfNotPresent
 
   # Prometheus port & scrape path
@@ -170,3 +186,11 @@ exporter:
 
   # Additional args for redis exporter
   extraArgs: {}
+
+scripts:
+  enabled: false
+  # CPU/Memory resource limits/requests
+  resources: {}
+  cleanup:
+    enabled: false
+    minutes: 60
