@@ -51,7 +51,7 @@ data:
     script_dir="$(dirname "$0")"
     while true; do
 {{- if .Values.scripts.cleanup.enabled }}
-      "${script_dir}/cleanup_local_data.sh" || exit $?
+      "${script_dir}/cleanup_local_data.sh"
 {{- end }}
       sleep 60
     done

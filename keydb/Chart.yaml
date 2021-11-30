@@ -2,7 +2,7 @@ apiVersion: v2
 name: keydb
 description: A Helm chart for KeyDB multimaster setup
 type: application
-version: 0.28.1
+version: 0.28.2
 keywords:
 - keydb
 - redis
