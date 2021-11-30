@@ -64,5 +64,5 @@ data:
 
     set -eo pipefail
 
-    find /data/ -type f -name temp-*.rdb  -mmin +{{ .Values.scripts.cleanup.minutes }} -delete
+    find /data/ -type f -name "temp-*.rdb"  -mmin +{{ .Values.scripts.cleanup.minutes }} -delete
 {{- end }}
