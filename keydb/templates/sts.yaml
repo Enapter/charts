@@ -80,7 +80,6 @@ spec:
         {{- if .Values.livenessProbe.custom }}
           {{- toYaml .Values.livenessProbe.custom | nindent 10 }}
         {{- else }}
-        livenessProbe:
           initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
           # One second longer than command timeout should prevent generation of zombie processes.
