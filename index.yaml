@@ -3,9 +3,9 @@ entries:
   keydb:
   - apiVersion: v2
     appVersion: 6.2.1
-    created: "2021-11-30T16:18:05.869578724+03:00"
+    created: "2021-12-03T18:15:11.510914953+03:00"
     description: A Helm chart for KeyDB multimaster setup
-    digest: ac0e38fe01394f5e4b06ea8f616491f1f25baab6f38e94b7d214431becb98d77
+    digest: f4a2a1679913069bd134d922d3c8ed6f2e6a780b6de413b5d8ecfdf6db428b46
     home: https://keydb.dev
     icon: https://keydb.dev/assets/ico/keydb_logo_bwtxtw.png
     keywords:
@@ -26,62 +26,8 @@ entries:
     - https://github.com/JohnSully/KeyDB
     type: application
     urls:
-    - https://github.com/Enapter/charts/releases/download/keydb-0.28.2/keydb-0.28.2.tgz
-    version: 0.28.2
-  - apiVersion: v2
-    appVersion: 6.2.1
-    created: "2021-11-30T16:07:03.39085552+03:00"
-    description: A Helm chart for KeyDB multimaster setup
-    digest: b39ed14b63de762090703043e913d941a383505522ebda5c28af6753e7ff0b1f
-    home: https://keydb.dev
-    icon: https://keydb.dev/assets/ico/keydb_logo_bwtxtw.png
-    keywords:
-    - keydb
-    - redis
-    - keyvalue
-    - database
-    - multimaster
-    - HA
-    - high-availability
-    maintainers:
-    - email: avoronkov@enapter.com
-      name: Antiarchitect
-      url: https://github.com/Antiarchitect
-    name: keydb
-    sources:
-    - https://github.com/Enapter/charts
-    - https://github.com/JohnSully/KeyDB
-    type: application
-    urls:
-    - https://github.com/Enapter/charts/releases/download/keydb-0.28.1/keydb-0.28.1.tgz
-    version: 0.28.1
-  - apiVersion: v2
-    appVersion: 6.2.1
-    created: "2021-11-30T15:58:07.812865618+03:00"
-    description: A Helm chart for KeyDB multimaster setup
-    digest: e938119283f99ed17730b5cefe4716168f2930c7ae6040087e52b28900b18208
-    home: https://keydb.dev
-    icon: https://keydb.dev/assets/ico/keydb_logo_bwtxtw.png
-    keywords:
-    - keydb
-    - redis
-    - keyvalue
-    - database
-    - multimaster
-    - HA
-    - high-availability
-    maintainers:
-    - email: avoronkov@enapter.com
-      name: Antiarchitect
-      url: https://github.com/Antiarchitect
-    name: keydb
-    sources:
-    - https://github.com/Enapter/charts
-    - https://github.com/JohnSully/KeyDB
-    type: application
-    urls:
-    - https://github.com/Enapter/charts/releases/download/keydb-0.28.0/keydb-0.28.0.tgz
-    version: 0.28.0
+    - https://github.com/Enapter/charts/releases/download/keydb-0.28.3/keydb-0.28.3.tgz
+    version: 0.28.3
   - apiVersion: v2
     appVersion: 6.2.0
     created: "2021-11-05T13:40:17.53827046+03:00"
@@ -645,4 +591,4 @@ entries:
     urls:
     - https://github.com/Enapter/charts/releases/download/keydb-0.10.1/keydb-0.10.1.tgz
     version: 0.10.1
-generated: "2021-11-30T16:18:05.869742196+03:00"
+generated: "2021-12-03T18:15:11.511363924+03:00"
