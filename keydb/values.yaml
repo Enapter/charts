@@ -20,7 +20,11 @@ appendonly: "no"
 
 annotations: {}
 
-configExtraArgs: {}
+configExtraArgs: []
+  # - somesimple: "argument"
+  # - client-output-buffer-limit: ["normal", "0", "0", "0"]
+  # - client-output-buffer-limit: ["replica", "268435456", "67108864", "60"]
+  # - client-output-buffer-limit: ["pubsub", "33554432", "8388608", "60"]
 
 podAnnotations: {}
 
@@ -107,6 +111,11 @@ persistentVolume:
   enabled: true
   accessModes:
     - ReadWriteOnce
+  selector: {}
+    # matchLabels:
+    #   release: "stable"
+    # matchExpressions:
+    #   - {key: environment, operator: In, values: [dev]}
   size: 1Gi
 
   ## If defined, storageClassName: <storageClass>
@@ -187,7 +196,11 @@ exporter:
   resources: {}
 
   # Additional args for redis exporter
-  extraArgs: {}
+  extraArgs: []
+    # - somesimple: "argument"
+    # - client-output-buffer-limit: ["normal", "0", "0", "0"]
+    # - client-output-buffer-limit: ["replica", "268435456", "67108864", "60"]
+    # - client-output-buffer-limit: ["pubsub", "33554432", "8388608", "60"]
 
 scripts:
   enabled: false

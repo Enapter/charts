@@ -146,8 +146,16 @@ spec:
         image: {{ .Values.exporter.image }}
         imagePullPolicy: {{ .Values.exporter.pullPolicy }}
         args:
-        {{- range $key, $value := .Values.exporter.extraArgs }}
-        - --{{ $key }}={{ $value }}
+        {{- range $item := .Values.exporter.extraArgs }}
+        {{- range $key, $value := $item }}
+        {{- if kindIs "invalid" $value }}
+        --{{ $key }} \
+        {{- else if kindIs "slice" $value }}
+        --{{ $key }}{{ range $value }} {{ . | quote }}{{ end }} \
+        {{- else }}
+        --{{ $key }} {{ $value | quote }} \
+        {{- end }}
+        {{- end }}
         {{- end }}
         env:
         - name: REDIS_ADDR
@@ -262,5 +270,9 @@ spec:
       {{ else }}
       storageClassName: {{ .Values.persistentVolume.storageClass }}
       {{- end }}
+      {{- end }}
+      {{- if .Values.persistentVolume.selector }}
+      selector:
+        {{- toYaml .Values.persistentVolume.selector | nindent 8 }}
       {{- end }}
   {{- end }}

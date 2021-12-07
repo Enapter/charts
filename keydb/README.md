@@ -13,6 +13,41 @@ helm install keydb enapter/keydb
 
 This chart bootstraps a [KeyDB](https://keydb.dev) highly available multi-master statefulset in a [Kubernetes](http://kubernetes.io) cluster using the Helm package manager.
 
+## 0.29.0 Upgrade notice
+
+As the chart is not yet production ready (0.x) backward incompatible changes can be introduced in minor releases.
+Since 0.29.0 `configExtraArgs` and `exporter.extraArgs` are now arrays of dicts in order to allow repeating arguments with the same key.
+If dict value is an array it is interpreted as multiple arguments for the key.
+
+### Config Example:
+
+```
+configExtraArgs:
+  - client-output-buffer-limit: ["normal", "0", "0", "0"]
+  - client-output-buffer-limit: ["replica", "268435456", "67108864", "60"]
+  - client-output-buffer-limit: ["pubsub", "33554432", "8388608", "60"]
+  - save: ~
+  - tcp-backlog "1024"
+```
+
+### Resulting File:
+
+```
+...
+
+exec keydb-server /etc/keydb/redis.conf \
+
+    ...
+
+    --client-output-buffer-limit "normal" "0" "0" "0" \
+    --client-output-buffer-limit "replica" "268435456" "67108864" "60" \
+    --client-output-buffer-limit "pubsub" "33554432" "8388608" "60" \
+    --save \
+    --tcp-backlog "1024" \
+
+    ...
+```
+
 ## Prerequisites
 
 - PV provisioner support in the underlying infrastructure if you want to enable persistence
@@ -43,7 +78,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `activeReplicas`                | KeyDB active replication setup                     | `yes`                                     |
 | `protectedMode`                 | KeyDB protection mode                              | `no`                                      |
 | `appendonly`                    | KeyDB appendonly setting                           | `no`                                      |
-| `configExtraArgs`               | Additional configuration arguments for KeyDB       | `{}`                                      |
+| `configExtraArgs`               | Additional configuration arguments for KeyDB       | `[]`                                      |
 | `annotations`                   | KeyDB StatefulSet annotations                      | `{}`                                      |
 | `podAnnotations`                | KeyDB pods annotations                             | `{}`                                      |
 | `tolerations`                   | KeyDB tolerations setting                          | `{}`                                      |
@@ -57,6 +92,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `startupProbe.custom`           | Custom StartupProbe for KeyDB pods                 | `{}`                                      |
 | `persistentVolume.enabled`      | Should PVC be created via volumeClaimTemplates     | `true`                                    |
 | `persistentVolume.accessModes`  | Volume access modes                                | `[ReadWriteOnce]`                         |
+| `persistentVolume.selector`     | PVC selector. (In order to match existing PVs)     | `{}`                                      |
 | `persistentVolume.size`         | Size of the volume                                 | `1Gi`                                     |
 | `persistentVolume.storageClass` | StorageClassName for volume                        | ``                                        |
 | `resources`                     | Resources for KeyDB containers                     | `{}`                                      |
@@ -80,7 +116,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `exporter.readinessProbe`       | ReadinessProbe for sidecar Prometheus exporter     | Look values.yaml                          |
 | `exporter.startupProbe`         | StartupProbe for sidecar Prometheus exporter       | Look values.yaml                          |
 | `exporter.resources`            | Resources for sidecar Prometheus container         | `{}`                                      |
-| `exporter.extraArgs`            | Additional arguments for exporter                  | `{}`                                      |
+| `exporter.extraArgs`            | Additional arguments for exporter                  | `[]`                                      |
 
 ## Using existingSecret
 
