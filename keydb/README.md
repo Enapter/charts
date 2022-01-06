@@ -16,7 +16,7 @@ This chart bootstraps a [KeyDB](https://keydb.dev) highly available multi-master
 ## 0.30.0 Upgrade notice
 
 As the chart is not yet production ready (0.x) backward incompatible changes can be introduced in minor releases.
-Since 0.30.0 `additionalAffinities` option is completely obsolete and `affinity` replaces it. `affinity` is rendered dynamically (approach is taken from Bitnami charts) so you can set dynamic things like `'{{ .Release.Name }}'` right inside the `affinity:` key in `values.yaml`. Will extend this approach in other places in the future.
+Since 0.30.0 `additionalAffinities` option is completely obsolete and `affinity` replaces it. `affinity` is rendered dynamically (approach is taken from Bitnami charts) so you can set dynamic things like `'{{ .Release.Name }}'` right inside the `affinity:` key in `values.yaml`. Will extend this approach for other places in the future.
 
 ## 0.29.0 Upgrade notice
 
