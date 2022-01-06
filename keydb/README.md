@@ -13,6 +13,11 @@ helm install keydb enapter/keydb
 
 This chart bootstraps a [KeyDB](https://keydb.dev) highly available multi-master statefulset in a [Kubernetes](http://kubernetes.io) cluster using the Helm package manager.
 
+## 0.30.0 Upgrade notice
+
+As the chart is not yet production ready (0.x) backward incompatible changes can be introduced in minor releases.
+Since 0.30.0 `additionalAffinities` option is completely obsolete and `affinity` replace it. `affinity` is rendered dynamically (approach is taken from Bitnami charts) so you can set dynamic things like `'{{ .Release.Name }}'` right inside the `affinity:` key in `values.yaml`. Will extend this approach in other places in the future.
+
 ## 0.29.0 Upgrade notice
 
 As the chart is not yet production ready (0.x) backward incompatible changes can be introduced in minor releases.
@@ -83,7 +88,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `podAnnotations`                | KeyDB pods annotations                             | `{}`                                      |
 | `tolerations`                   | KeyDB tolerations setting                          | `{}`                                      |
 | `nodeSelector`                  | KeyDB nodeSelector setting                         | `{}`                                      |
-| `additionalAffinities`          | Additional affinities for StatefulSet              | `{}`                                      |
+| `affinity`                      | StatefulSet Affinity rules                         | Look values.yaml                          |
 | `extraInitContainers`           | Additional init containers for StatefulSet         | `[]`                                      |
 | `extraContainers`               | Additional sidecar containers for StatefulSet      | `[]`                                      |
 | `extraVolumes`                  | Additional volumes for init and sidecar containers | `[]`                                      |

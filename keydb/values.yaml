@@ -37,6 +37,23 @@ tolerations: {}
 nodeSelector: {}
   # topology.kubernetes.io/region: some-region
 
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - '{{ include "keydb.name" . }}'
+          - key: app.kubernetes.io/instance
+            operator: In
+            values:
+            - '{{ .Release.Name }}'
+        topologyKey: "kubernetes.io/hostname"
+
 additionalAffinities: {}
   # nodeAffinity:
   #   requiredDuringSchedulingIgnoredDuringExecution:

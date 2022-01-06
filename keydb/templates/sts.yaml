@@ -30,24 +30,7 @@ spec:
         {{ include "keydb.labels" . | nindent 8 }}
     spec:
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values:
-                  - {{ include "keydb.name" . }}
-                - key: app.kubernetes.io/instance
-                  operator: In
-                  values:
-                  - {{ .Release.Name }}
-              topologyKey: "kubernetes.io/hostname"
-        {{- if .Values.additionalAffinities }}
-        {{- toYaml .Values.additionalAffinities | nindent 8 }}
-        {{- end }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.affinity "context" $) | nindent 8 }}
       {{- if .Values.extraInitContainers }}
       initContainers:
       {{- toYaml .Values.extraInitContainers | nindent 6 }}
