@@ -77,7 +77,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `nodes`                         | Number of KeyDB master pods                        | `3`                                       |
 | `password`                      | If enabled KeyDB servers are password-protected    | `""`                                      |
 | `existingSecret`                | If enabled password is taken from secret           | `""`                                      |
-| `existingSecretPasswordKey`     | Secret key name. Default value password            | `""`
+| `existingSecretPasswordKey`     | Secret key name.                                   | `"password"`                              |
 | `port`                          | KeyDB service port clients connect to              | `6379`                                    |
 | `threads`                       | KeyDB server-threads per node                      | `2`                                       |
 | `multiMaster`                   | KeyDB multi-master setup                           | `yes`                                     |
@@ -127,7 +127,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 ## Using existingSecret
 
 When definining existingSecret (by default is "") password value is ignored. Password is taken from that secret, instead of being provided as plain text under values.yaml file. \
-Secret key must be *password*. \
+Secret key must be `existingSecretPasswordKey` (*password* by default). \
 Example of of such secret: 
 ```bash
 kubectl create secret generic keydb-password --from-literal=password=KEYDB_PASSWORD
