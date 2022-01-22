@@ -8,7 +8,7 @@ nodes: 3
 
 password: ""
 existingSecret: ""
-
+existingSecretPasswordKey: ""
 port: 6379
 
 threads: 2

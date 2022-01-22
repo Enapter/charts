@@ -77,6 +77,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `nodes`                         | Number of KeyDB master pods                        | `3`                                       |
 | `password`                      | If enabled KeyDB servers are password-protected    | `""`                                      |
 | `existingSecret`                | If enabled password is taken from secret           | `""`                                      |
+| `existingSecretPasswordKey`     | Secret key name. Default value password            | `""`
 | `port`                          | KeyDB service port clients connect to              | `6379`                                    |
 | `threads`                       | KeyDB server-threads per node                      | `2`                                       |
 | `multiMaster`                   | KeyDB multi-master setup                           | `yes`                                     |
@@ -135,5 +136,6 @@ Definition of existingSecret in that case:
 ```yaml
 password: ""
 existingSecret: keydb-password
+existingSecretPasswordKey: password-key-in-secret-file
 ```
 It is important to use only one way of providing passwords: via plain text under values.yaml or using already existing secret.
