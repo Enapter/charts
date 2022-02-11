@@ -8,7 +8,7 @@ data:
   ping_readiness_local.sh: |-
     #!/bin/bash
 
-    set -eo pipefail
+    set -e
 
     [[ -n "${REDIS_PASSWORD}" ]] && export REDISCLI_AUTH="${REDIS_PASSWORD}"
     response="$(
@@ -26,7 +26,7 @@ data:
   ping_liveness_local.sh: |-
     #!/bin/bash
 
-    set -eo pipefail
+    set -e
 
     [[ -n "${REDIS_PASSWORD}" ]] && export REDISCLI_AUTH="${REDIS_PASSWORD}"
     response="$(
@@ -46,23 +46,33 @@ data:
   scripts_local.sh: |-
     #!/bin/bash
 
-    set -eo pipefail
+    set -e
 
     script_dir="$(dirname "$0")"
     while true; do
-{{- if .Values.scripts.cleanup.enabled }}
-      "${script_dir}/cleanup_local_data.sh"
+{{- if .Values.scripts.cleanupCoredumps.enabled }}
+      "${script_dir}/cleanup_coredumps.sh"
+{{- end }}
+{{- if .Values.scripts.cleanupTempfiles.enabled }}
+      "${script_dir}/cleanup_tempfiles.sh"
 {{- end }}
       sleep 60
     done
 {{- end }}
 
-{{- if .Values.scripts.cleanup.enabled }}
-
-  cleanup_local_data.sh: |-
+{{- if .Values.scripts.cleanupCoredumps.enabled }}
+  cleanup_coredumps.sh: |-
     #!/bin/bash
 
-    set -eo pipefail
+    set -e
 
-    find /data/ -type f \( -name "temp-*.aof" -o -name "temp-*.rdb" \) -mmin +{{ .Values.scripts.cleanup.minutes }} -delete
+    find /data/ -type f -name "core.*" -mmin +{{ .Values.scripts.cleanupCoredumps.minutes }} -delete
+{{- end }}
+{{- if .Values.scripts.cleanupTempfiles.enabled }}
+  cleanup_tempfiles.sh: |-
+    #!/bin/bash
+
+    set -e
+
+    find /data/ -type f \( -name "temp-*.aof" -o -name "temp-*.rdb" \) -mmin +{{ .Values.scripts.cleanupTempfiles.minutes }} -delete
 {{- end }}

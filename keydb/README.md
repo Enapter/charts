@@ -13,6 +13,11 @@ helm install keydb enapter/keydb
 
 This chart bootstraps a [KeyDB](https://keydb.dev) highly available multi-master statefulset in a [Kubernetes](http://kubernetes.io) cluster using the Helm package manager.
 
+## 0.33.0 Upgrade notice
+
+As the chart is not yet production ready (0.x) backward incompatible changes can be introduced in minor releases.
+Since 0.33.0 `scripts.cleanup` is obsoleted by `scripts.cleanupTempfiles`. `scripts.cleanupCoredumps` section is added in order to provide ability to cleanup `core.*` files and is disabled by default. Please look `values.yaml`.
+
 ## 0.30.0 Upgrade notice
 
 As the chart is not yet production ready (0.x) backward incompatible changes can be introduced in minor releases.
@@ -103,6 +108,8 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `persistentVolume.storageClass` | StorageClassName for volume                        | ``                                        |
 | `resources`                     | Resources for KeyDB containers                     | `{}`                                      |
 | `scripts.enabled`               | Turn on health util scripts                        | `false`                                   |
+| `scripts.cleanupCoredumps`      | Coredumps cleanup scripts                          | Look values.yaml                          |
+| `scripts.cleanupTempfiles`      | Tempfiles cleanup scripts                          | Look values.yaml                          |
 | `securityContext`               | SecurityContext for KeyDB pods                     | `{}`                                      |
 | `service.annotations`           | Service annotations                                | `{}`                                      |
 | `loadBalancer.enabled`          | Create LoadBalancer service                        | `false`                                   |

@@ -223,6 +223,9 @@ scripts:
   enabled: false
   # CPU/Memory resource limits/requests
   resources: {}
-  cleanup:
+  cleanupCoredumps:
+    enabled: false
+    minutes: 1440
+  cleanupTempfiles:
     enabled: true
     minutes: 60
