@@ -36,7 +36,7 @@ data:
         -p "${REDIS_PORT}" \
         ping
     )"
-    if [ "${response}" != "PONG" ] && [ "${response}" != "LOADING Redis is loading the dataset in memory" ]; then
+    if [ "${response}" != "PONG" ] && [[ ! "${response}" =~ ^.*LOADING.*$ ]]; then
       echo "${response}"
       exit 1
     fi
