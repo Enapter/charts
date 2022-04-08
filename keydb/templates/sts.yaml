@@ -134,9 +134,13 @@ spec:
         {{- if kindIs "invalid" $value }}
         - --{{ $key }}
         {{- else if kindIs "slice" $value }}
-        - --{{ $key }}{{ range $value }} {{ . | quote }}{{ end }}
+        - --{{ $key }}
+        {{- range $value }}
+        - {{ . | quote }}
+        {{- end }}
         {{- else }}
-        - --{{ $key }} {{ $value | quote }}
+        - --{{ $key }}
+        - {{ $value | quote }}
         {{- end }}
         {{- end }}
         {{- end }}
