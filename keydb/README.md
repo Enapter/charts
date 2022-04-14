@@ -110,6 +110,8 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `scripts.enabled`               | Turn on health util scripts                        | `false`                                   |
 | `scripts.cleanupCoredumps`      | Coredumps cleanup scripts                          | Look values.yaml                          |
 | `scripts.cleanupTempfiles`      | Tempfiles cleanup scripts                          | Look values.yaml                          |
+| `scripts.securityContext`       | SecurityContext for scripts container              | `{}`                                      |
+| `keydb.securityContext`         | SecurityContext for KeyDB container                | `{}`                                      |
 | `securityContext`               | SecurityContext for KeyDB pods                     | `{}`                                      |
 | `service.annotations`           | Service annotations                                | `{}`                                      |
 | `loadBalancer.enabled`          | Create LoadBalancer service                        | `false`                                   |
@@ -129,6 +131,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `exporter.readinessProbe`       | ReadinessProbe for sidecar Prometheus exporter     | Look values.yaml                          |
 | `exporter.startupProbe`         | StartupProbe for sidecar Prometheus exporter       | Look values.yaml                          |
 | `exporter.resources`            | Resources for sidecar Prometheus container         | `{}`                                      |
+| `exporter.securityContext`      | SecurityContext for Prometheus exporter container  | `{}`                                      |
 | `exporter.extraArgs`            | Additional arguments for exporter                  | `[]`                                      |
 
 ## Using existingSecret

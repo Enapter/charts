@@ -116,6 +116,8 @@ spec:
         {{- end }}
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
+        securityContext:
+          {{- toYaml .Values.keydb.securityContext | nindent 10 }}
         volumeMounts:
         - name: health
           mountPath: /health
@@ -173,6 +175,8 @@ spec:
         {{- end }}
         resources:
           {{- toYaml .Values.exporter.resources | nindent 10 }}
+        securityContext:
+          {{- toYaml .Values.exporter.securityContext | nindent 10 }}
         ports:
         - name: redis-exporter
           containerPort: {{ .Values.exporter.port }}
@@ -198,6 +202,8 @@ spec:
         {{- end }}
         resources:
           {{- toYaml .Values.scripts.resources | nindent 10 }}
+        securityContext:
+          {{- toYaml .Values.scripts.securityContext | nindent 10 }}
         volumeMounts:
         - name: health
           mountPath: /health
