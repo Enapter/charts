@@ -154,6 +154,10 @@ securityContext: {}
   # - name: vm.overcommit_memory
   #   value: "1"
 
+keydb:
+  # Container security context
+  securityContext: {}
+
 service:
   annotations: {}
 
@@ -212,6 +216,9 @@ exporter:
   # CPU/Memory resource limits/requests
   resources: {}
 
+  # Container security context
+  securityContext: {}
+
   # Additional args for redis exporter
   extraArgs: []
     # - somesimple: "argument"
@@ -223,6 +230,8 @@ scripts:
   enabled: false
   # CPU/Memory resource limits/requests
   resources: {}
+  # Container security context
+  securityContext: {}
   cleanupCoredumps:
     enabled: false
     minutes: 1440
