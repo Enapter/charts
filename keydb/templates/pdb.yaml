@@ -1,0 +1,15 @@
+{{- if gt (int .Values.nodes) 1 }}
+{{- with .Values.pdb }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ $.Release.Name }}
+  labels:
+    app: {{ $.Release.Name }}
+spec:
+  selector:
+    matchLabels:
+        {{ include "keydb.labels" $ | nindent 6 }}
+{{ . | toYaml | indent 2 }}
+{{- end }}
+{{- end }}
