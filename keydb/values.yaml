@@ -63,6 +63,9 @@ additionalAffinities: {}
   #           operator: In
   #           values: somenodepool
 
+pdb:
+  minAvailable: 50%
+
 # Additional init containers
 extraInitContainers: []
 
