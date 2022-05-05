@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "keydb.fullname" . }}-health
   labels:
-    {{ include "keydb.labels" . | nindent 4 }}
+    {{- include "keydb.labels" . | nindent 4 }}
 data:
   ping_readiness_local.sh: |-
     #!/bin/bash

@@ -4,9 +4,9 @@ kind: Service
 metadata:
   name: {{ include "keydb.fullname" . }}-headless
   labels:
-    {{ include "keydb.labels" . | nindent 4 }}
+    {{- include "keydb.labels" . | nindent 4 }}
   annotations:
-    {{ toYaml .Values.service.annotations | nindent 4 }}
+    {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: ClusterIP
   clusterIP: None
@@ -16,4 +16,4 @@ spec:
     protocol: TCP
     targetPort: keydb
   selector:
-    {{ include "keydb.selectorLabels" . | nindent 4 }}
+    {{- include "keydb.selectorLabels" . | nindent 4 }}

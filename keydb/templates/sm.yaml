@@ -4,18 +4,18 @@ kind: ServiceMonitor
 metadata:
   name: {{ include "keydb.fullname" . }}
   labels:
-    {{ include "keydb.labels" . | nindent 4 }}
+    {{- include "keydb.labels" . | nindent 4 }}
   {{- if .Values.serviceMonitor.labels }}
-    {{ toYaml .Values.serviceMonitor.labels | nindent 4 }}
+    {{- toYaml .Values.serviceMonitor.labels | nindent 4 }}
   {{- end }}
   {{- if .Values.serviceMonitor.annotations }}
   annotations:
-    {{ toYaml .Values.serviceMonitor.annotations | nindent 4 }}
+    {{- toYaml .Values.serviceMonitor.annotations | nindent 4 }}
   {{- end }}
 spec:
   selector:
     matchLabels:
-      {{ include "keydb.labels" . | nindent 6 }}
+      {{- include "keydb.labels" . | nindent 6 }}
   namespaceSelector:
     matchNames:
     - {{.Release.Namespace }}

@@ -63,8 +63,9 @@ additionalAffinities: {}
   #           operator: In
   #           values: somenodepool
 
-pdb:
-  minAvailable: 50%
+podDisruptionBudget:
+  enabled: true
+  maxUnavailable: 1
 
 # Additional init containers
 extraInitContainers: []

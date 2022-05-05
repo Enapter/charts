@@ -1,15 +1,18 @@
-{{- if gt (int .Values.nodes) 1 }}
-{{- with .Values.pdb }}
+{{- if .Values.podDisruptionBudget.enabled }}
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ $.Release.Name }}
+  name: {{ include "keydb.fullname" . }}
   labels:
-    app: {{ $.Release.Name }}
+    {{- include "keydb.labels" . | nindent 4 }}
 spec:
+{{- if .Values.podDisruptionBudget.maxUnavailable }}
+  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable }}
+{{- end }}
+{{- if .Values.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+{{- end }}
   selector:
     matchLabels:
-        {{ include "keydb.labels" $ | nindent 6 }}
-{{ . | toYaml | indent 2 }}
-{{- end }}
+      {{- include "keydb.selectorLabels" . | nindent 6 }}
 {{- end }}

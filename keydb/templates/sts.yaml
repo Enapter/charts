@@ -7,13 +7,13 @@ metadata:
     {{- toYaml .Values.annotations | nindent 4 }}
   {{- end }}
   labels:
-    {{ include "keydb.labels" . | nindent 4 }}
+    {{- include "keydb.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.nodes }}
   serviceName: {{ include "keydb.fullname" . }}-headless
   selector:
     matchLabels:
-      {{ include "keydb.selectorLabels" . | nindent 6 }}
+      {{- include "keydb.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -27,7 +27,7 @@ spec:
         {{- toYaml .Values.podAnnotations | nindent 8 }}
         {{- end }}
       labels:
-        {{ include "keydb.labels" . | nindent 8 }}
+        {{- include "keydb.labels" . | nindent 8 }}
     spec:
       affinity:
         {{- include "common.tplvalues.render" (dict "value" .Values.affinity "context" $) | nindent 8 }}

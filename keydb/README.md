@@ -106,6 +106,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `persistentVolume.selector`     | PVC selector. (In order to match existing PVs)     | `{}`                                      |
 | `persistentVolume.size`         | Size of the volume                                 | `1Gi`                                     |
 | `persistentVolume.storageClass` | StorageClassName for volume                        | ``                                        |
+| `podDisruptionBudget`           | podDisruptionBudget for KeyDB pods                 | Look values.yaml                          |
 | `resources`                     | Resources for KeyDB containers                     | `{}`                                      |
 | `scripts.enabled`               | Turn on health util scripts                        | `false`                                   |
 | `scripts.cleanupCoredumps`      | Coredumps cleanup scripts                          | Look values.yaml                          |

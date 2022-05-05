@@ -3,9 +3,9 @@ kind: Service
 metadata:
   name: {{ include "keydb.fullname" . }}
   labels:
-    {{ include "keydb.labels" . | nindent 4 }}
+    {{- include "keydb.labels" . | nindent 4 }}
   annotations:
-    {{ toYaml .Values.service.annotations | nindent 4 }}
+    {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: ClusterIP
   ports:
@@ -18,5 +18,5 @@ spec:
     protocol: TCP
     targetPort: redis-exporter
   selector:
-    {{ include "keydb.selectorLabels" . | nindent 4 }}
+    {{- include "keydb.selectorLabels" . | nindent 4 }}
   sessionAffinity: ClientIP
