@@ -77,7 +77,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 
 | Parameter                       | Description                                        | Default                                   |
 |:--------------------------------|:---------------------------------------------------|:------------------------------------------|
-| `image`                         | KeyDB docker image                                 | `eqalpha/keydb:x86_64_v6.2.2`             |
+| `image`                         | KeyDB docker image                                 | `eqalpha/keydb:x86_64_v6.3.0`             |
 | `imagePullPolicy`               | K8s imagePullPolicy                                | `IfNotPresent`                            |
 | `nodes`                         | Number of KeyDB master pods                        | `3`                                       |
 | `password`                      | If enabled KeyDB servers are password-protected    | `""`                                      |
