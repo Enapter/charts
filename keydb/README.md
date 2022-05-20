@@ -84,6 +84,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `existingSecret`                | If enabled password is taken from secret           | `""`                                      |
 | `existingSecretPasswordKey`     | Secret key name.                                   | `"password"`                              |
 | `port`                          | KeyDB service port clients connect to              | `6379`                                    |
+| `portName`                      | KeyDB service port name in the Service spec        | `server`                                  |
 | `threads`                       | KeyDB server-threads per node                      | `2`                                       |
 | `multiMaster`                   | KeyDB multi-master setup                           | `yes`                                     |
 | `activeReplicas`                | KeyDB active replication setup                     | `yes`                                     |
@@ -115,6 +116,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `keydb.securityContext`         | SecurityContext for KeyDB container                | `{}`                                      |
 | `securityContext`               | SecurityContext for KeyDB pods                     | `{}`                                      |
 | `service.annotations`           | Service annotations                                | `{}`                                      |
+| `service.appProtocol.enabled`   | Turn on appProtocol fields in port specs           | `false`                                   |
 | `loadBalancer.enabled`          | Create LoadBalancer service                        | `false`                                   |
 | `loadBalancer.annotations`      | Annotations for LB                                 | `{}`                                      |
 | `loadBalancer.extraSpec`        | Additional spec for LB                             | `{}`                                      |
@@ -127,6 +129,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `exporter.image`                | Exporter Image                                     | `oliver006/redis_exporter:v1.31.4-alpine` |
 | `exporter.pullPolicy`           | Exporter imagePullPolicy                           | `IfNotPresent`                            |
 | `exporter.port`                 | `prometheus.io/port`                               | `9121`                                    |
+| `exporter.portName`             | Exporter service port name in the Service spec     | `redis-exporter`                          |
 | `exporter.scrapePath`           | `prometheus.io/path`                               | `/metrics`                                |
 | `exporter.livenessProbe`        | LivenessProbe for sidecar Prometheus exporter      | Look values.yaml                          |
 | `exporter.readinessProbe`       | ReadinessProbe for sidecar Prometheus exporter     | Look values.yaml                          |
