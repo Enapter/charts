@@ -9,14 +9,20 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: server
+  - name: {{ .Values.portName | quote }}
     port: {{ .Values.port | int }}
     protocol: TCP
     targetPort: keydb
-  - name: redis-exporter
+    {{- if .Values.service.appProtocol.enabled }}
+    appProtocol: redis
+    {{- end }}
+  - name: {{ .Values.exporter.portName | quote }}
     port: {{ .Values.exporter.port | int }}
     protocol: TCP
     targetPort: redis-exporter
+    {{- if .Values.service.appProtocol.enabled }}
+    appProtocol: http
+    {{- end }}
   selector:
     {{- include "keydb.selectorLabels" . | nindent 4 }}
   sessionAffinity: ClientIP

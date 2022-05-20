@@ -14,10 +14,13 @@ spec:
   {{- toYaml .Values.loadBalancer.extraSpec | nindent 2 }}
   {{- end }}
   ports:
-  - name: server
+  - name: {{ .Values.portName | quote }}
     port: {{ .Values.port | int }}
     protocol: TCP
     targetPort: keydb
+    {{- if .Values.service.appProtocol.enabled }}
+    appProtocol: redis
+    {{- end }}
   selector:
     {{- include "keydb.selectorLabels" . | nindent 4 }}
 {{- end }}
