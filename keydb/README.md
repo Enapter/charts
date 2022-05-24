@@ -13,6 +13,16 @@ helm install keydb enapter/keydb
 
 This chart bootstraps a [KeyDB](https://keydb.dev) highly available multi-master statefulset in a [Kubernetes](http://kubernetes.io) cluster using the Helm package manager.
 
+## 0.38.0 Upgrade notice
+
+As the chart is not yet production ready (0.x) backward incompatible changes can be introduced in minor releases.
+
+This release enables using a dedicated ServiceAccount for the KeyDB StatefulSet. Either an SA created by the chart or a pre-exising SA can be used. The corresponding value setting `serviceAccount.enabled` is turned off by default for backward compatibility.
+
+Please note that the `serviceAccountName` field of the StatefulSet's spec is immutable, so an upgrade from a helm release where the dedicated SA is disabled (the default) to a release where it is explicitly enabled is impossible and will fail. You should plan a migration to an SA-enabled release in advance considering your environment and operational practices, e.g. using a blue-green deployment or scheduling a downtime for removal of the previous release. In case of removal please also consider data retention as necessary, e.g. verify the reclaim policy of the StorageClass in use.
+
+If you plan a deployment in an environment where dedicated ServiceAccounts are essential, e.g. in a service mesh, please consider enabling the SA setting from the start.
+
 ## 0.33.0 Upgrade notice
 
 As the chart is not yet production ready (0.x) backward incompatible changes can be introduced in minor releases.
@@ -120,6 +130,10 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `loadBalancer.enabled`          | Create LoadBalancer service                        | `false`                                   |
 | `loadBalancer.annotations`      | Annotations for LB                                 | `{}`                                      |
 | `loadBalancer.extraSpec`        | Additional spec for LB                             | `{}`                                      |
+| `serviceAccount.enabled`        | Use a dedicated ServiceAccount (SA)                | `false`                                   |
+| `serviceAccount.create`         | Create the SA (rather than use an existing one)    | `true`                                    |
+| `serviceAccount.name`           | Set the name of an existing SA or override created | ``                                        |
+| `serviceAccount.extraSpec`      | Additional spec for the created SA                 | `{}`                                      |
 | `serviceMonitor.enabled`        | Prometheus operator ServiceMonitor                 | `false`                                   |
 | `serviceMonitor.labels`         | Additional labels for ServiceMonitor               | `{}`                                      |
 | `serviceMonitor.annotations`    | Additional annotations for ServiceMonitor          | `{}`                                      |

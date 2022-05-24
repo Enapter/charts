@@ -1,0 +1,11 @@
+{{- if .Values.serviceAccount.enabled | and .Values.serviceAccount.create }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "keydb.serviceAccountName" . | quote }}
+  labels:
+    {{- include "keydb.labels" . | nindent 4 }}
+{{- with .Values.serviceAccount.extraSpec }}
+{{ toYaml . }}
+{{- end }}
+{{- end }}
