@@ -168,6 +168,17 @@ service:
   appProtocol:
     enabled: false
 
+serviceAccount:
+  enabled: false
+  create: true
+  name: ""
+
+  # extraSpec:
+  #   automountServiceAccountToken: false
+  #   imagePullSecrets:
+  #   - name: pull-secret
+  extraSpec: {}
+
 loadBalancer:
   enabled: false
 

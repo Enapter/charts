@@ -215,6 +215,9 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.securityContext | nindent 8 }}
+      {{- if .Values.serviceAccount.enabled }}
+      serviceAccountName: {{ include "keydb.serviceAccountName" . | quote }}
+      {{- end }}
       {{- if .Values.tolerations }}
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
