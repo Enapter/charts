@@ -207,7 +207,6 @@ exporter:
   enabled: false
   image: oliver006/redis_exporter:v1.39.0-alpine
   imagePullPolicy: IfNotPresent
-  imagePullSecrets: []
 
   # Prometheus port & scrape path
   port: 9121

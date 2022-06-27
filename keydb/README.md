@@ -13,7 +13,7 @@ helm install keydb enapter/keydb
 
 This chart bootstraps a [KeyDB](https://keydb.dev) highly available multi-master statefulset in a [Kubernetes](http://kubernetes.io) cluster using the Helm package manager.
 
-## 0.40.0 Upgrade notice
+## 0.40.1 Upgrade notice
 
 As the chart is not yet production ready (0.x) backward incompatible changes can be introduced in minor releases.
 
@@ -96,7 +96,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 |:--------------------------------|:---------------------------------------------------|:------------------------------------------|
 | `image`                         | KeyDB docker image                                 | `eqalpha/keydb:x86_64_v6.3.1`             |
 | `imagePullPolicy`               | KeyDB imagePullPolicy                              | `IfNotPresent`                            |
-| `imagePullSecrets`              | KeyDB imagePullSecrets                             | `[]`                                      |
+| `imagePullSecrets`              | KeyDB Pod imagePullSecrets                         | `[]`                                      |
 | `nodes`                         | Number of KeyDB master pods                        | `3`                                       |
 | `password`                      | If enabled KeyDB servers are password-protected    | `""`                                      |
 | `existingSecret`                | If enabled password is taken from secret           | `""`                                      |
@@ -150,7 +150,6 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `exporter.enabled`              | Prometheus Exporter sidecar contaner               | `false`                                   |
 | `exporter.image`                | Exporter Image                                     | `oliver006/redis_exporter:v1.39.0-alpine` |
 | `exporter.imagePullPolicy`      | Exporter imagePullPolicy                           | `IfNotPresent`                            |
-| `exporter.imagePullSecrets`     | Exporter imagePullSecrets                          | `[]`                                      |
 | `exporter.port`                 | `prometheus.io/port`                               | `9121`                                    |
 | `exporter.portName`             | Exporter service port name in the Service spec     | `redis-exporter`                          |
 | `exporter.scrapePath`           | `prometheus.io/path`                               | `/metrics`                                |
