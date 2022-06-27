@@ -3,6 +3,7 @@ fullnameOverride: ""
 
 image: eqalpha/keydb:x86_64_v6.3.1
 imagePullPolicy: IfNotPresent
+imagePullSecrets: []
 
 nodes: 3
 
@@ -205,7 +206,8 @@ serviceMonitor:
 exporter:
   enabled: false
   image: oliver006/redis_exporter:v1.39.0-alpine
-  pullPolicy: IfNotPresent
+  imagePullPolicy: IfNotPresent
+  imagePullSecrets: []
 
   # Prometheus port & scrape path
   port: 9121

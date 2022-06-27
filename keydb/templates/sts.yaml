@@ -39,6 +39,8 @@ spec:
       - name: keydb
         image: {{ .Values.image }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        imagePullSecrets:
+          {{- toYaml .Values.imagePullSecrets | nindent 10 }}
         command:
         - /utils/server.sh
         env:
@@ -130,6 +132,8 @@ spec:
       - name: redis-exporter
         image: {{ .Values.exporter.image }}
         imagePullPolicy: {{ .Values.exporter.pullPolicy }}
+        imagePullSecrets:
+          {{- toYaml .Values.exporter.imagePullSecrets | nindent 10 }}
         args:
         {{- range $item := .Values.exporter.extraArgs }}
         {{- range $key, $value := $item }}
@@ -185,6 +189,8 @@ spec:
       - name: scripts
         image: {{ .Values.image }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        imagePullSecrets:
+          {{- toYaml .Values.imagePullSecrets | nindent 10 }}
         command:
         - /health/scripts_local.sh
         env:
