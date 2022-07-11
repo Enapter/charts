@@ -94,8 +94,9 @@ The following table lists the configurable parameters of the KeyDB chart and the
 
 | Parameter                       | Description                                        | Default                                   |
 |:--------------------------------|:---------------------------------------------------|:------------------------------------------|
-| `image`                         | KeyDB docker image                                 | `eqalpha/keydb:x86_64_v6.3.1`             |
-| `imagePullPolicy`               | KeyDB imagePullPolicy                              | `IfNotPresent`                            |
+| `imageRepository`               | KeyDB docker image                                 | `eqalpha/keydb`                           |
+| `imageTag`                      | KeyDB docker image tag                             | `x86_64_v6.3.1`                           |
+| `imagePullPolicy`               | K8s imagePullPolicy                                | `IfNotPresent`                            |
 | `imagePullSecrets`              | KeyDB Pod imagePullSecrets                         | `[]`                                      |
 | `nodes`                         | Number of KeyDB master pods                        | `3`                                       |
 | `password`                      | If enabled KeyDB servers are password-protected    | `""`                                      |
@@ -148,8 +149,9 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `serviceMonitor.interval`       | ServiceMonitor scrape interval                     | `30s`                                     |
 | `serviceMonitor.scrapeTimeout`  | ServiceMonitor scrape timeout                      | `nil`                                     |
 | `exporter.enabled`              | Prometheus Exporter sidecar contaner               | `false`                                   |
-| `exporter.image`                | Exporter Image                                     | `oliver006/redis_exporter:v1.39.0-alpine` |
-| `exporter.imagePullPolicy`      | Exporter imagePullPolicy                           | `IfNotPresent`                            |
+| `exporter.imageRepository`      | Exporter Image                                     | `oliver006/redis_exporter`                |
+| `exporter.imageTag`             | Exporter Image Tag                                 | `v1.39.0-alpine`                          |
+| `exporter.pullPolicy`           | Exporter imagePullPolicy                           | `IfNotPresent`                            |
 | `exporter.port`                 | `prometheus.io/port`                               | `9121`                                    |
 | `exporter.portName`             | Exporter service port name in the Service spec     | `redis-exporter`                          |
 | `exporter.scrapePath`           | `prometheus.io/path`                               | `/metrics`                                |
