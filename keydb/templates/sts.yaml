@@ -37,7 +37,11 @@ spec:
       {{- end }}
       containers:
       - name: keydb
+        {{- if .Values.image }}
         image: {{ .Values.image }}
+        {{- else }}
+        image: {{ .Values.imageRepository }}:{{ .Values.imageTag }}
+        {{- end }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         command:
         - /utils/server.sh
@@ -128,7 +132,11 @@ spec:
           readOnly: true
       {{- if .Values.exporter.enabled }}
       - name: redis-exporter
+        {{- if .Values.exporter.image }}
         image: {{ .Values.exporter.image }}
+        {{- else }}
+        image: {{ .Values.exporter.imageRepository }}:{{ .Values.exporter.imageTag }}
+        {{- end }}
         imagePullPolicy: {{ .Values.exporter.pullPolicy }}
         args:
         {{- range $item := .Values.exporter.extraArgs }}
@@ -183,7 +191,11 @@ spec:
       {{- end }}
       {{- if .Values.scripts.enabled }}
       - name: scripts
+        {{- if .Values.image }}
         image: {{ .Values.image }}
+        {{- else }}
+        image: {{ .Values.imageRepository }}:{{ .Values.imageTag }}
+        {{- end }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         command:
         - /health/scripts_local.sh
