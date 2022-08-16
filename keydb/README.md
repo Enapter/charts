@@ -150,7 +150,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `serviceMonitor.scrapeTimeout`  | ServiceMonitor scrape timeout                      | `nil`                                     |
 | `exporter.enabled`              | Prometheus Exporter sidecar contaner               | `false`                                   |
 | `exporter.imageRepository`      | Exporter Image                                     | `oliver006/redis_exporter`                |
-| `exporter.imageTag`             | Exporter Image Tag                                 | `v1.43.0-alpine`                          |
+| `exporter.imageTag`             | Exporter Image Tag                                 | `v1.43.1-alpine`                          |
 | `exporter.pullPolicy`           | Exporter imagePullPolicy                           | `IfNotPresent`                            |
 | `exporter.port`                 | `prometheus.io/port`                               | `9121`                                    |
 | `exporter.portName`             | Exporter service port name in the Service spec     | `redis-exporter`                          |
