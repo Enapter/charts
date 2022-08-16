@@ -11,7 +11,7 @@ helm package ./keydb/ --destination ./.deploy/
 ### Upload the release to Github
 
 ```console
-helm-cr upload --config ~/.cr.yaml
+helm-cr upload --skip-existing --config ~/.cr.yaml
 ```
 
 ### Update index.yaml
