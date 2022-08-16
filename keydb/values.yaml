@@ -207,7 +207,7 @@ serviceMonitor:
 exporter:
   enabled: false
   imageRepository: oliver006/redis_exporter
-  imageTag: v1.43.0-alpine
+  imageTag: v1.43.1-alpine
   pullPolicy: IfNotPresent
 
   # Prometheus port & scrape path
