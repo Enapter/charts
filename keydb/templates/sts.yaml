@@ -32,7 +32,7 @@ spec:
       {{- if .nodeTaintsPolicy }}
       nodeTaintsPolicy: {{ .nodeTaintsPolicy }}
       {{- end }}
-      {{- end }}
+    {{- end }}
   {{- end }}
   template:
     metadata:
