@@ -45,7 +45,7 @@ topologySpreadConstraints: []
 #   ## Optional keys
 #   # whenUnsatisfiable: DoNotSchedule
 #   # topologyKey: "topology.kubernetes.io/zone"
-#   # minDomains: 0
+#   # minDomains: 1
 #   # nodeAffinityPolicy: Honor
 #   # nodeTaintsPolicy: Honor
 
