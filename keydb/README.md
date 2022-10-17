@@ -114,6 +114,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `podAnnotations`                | KeyDB pods annotations                             | `{}`                                      |
 | `tolerations`                   | KeyDB tolerations setting                          | `{}`                                      |
 | `nodeSelector`                  | KeyDB nodeSelector setting                         | `{}`                                      |
+| `topologySpreadConstraints`     | KeyDB topologySpreadConstraints setting            | `[]`                                      |
 | `affinity`                      | StatefulSet Affinity rules                         | Look values.yaml                          |
 | `extraInitContainers`           | Additional init containers for StatefulSet         | `[]`                                      |
 | `extraContainers`               | Additional sidecar containers for StatefulSet      | `[]`                                      |
