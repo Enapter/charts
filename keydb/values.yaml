@@ -40,6 +40,15 @@ tolerations: {}
 nodeSelector: {}
   # topology.kubernetes.io/region: some-region
 
+topologySpreadConstraints: []
+# - maxSkew: 1
+#   ## Optional keys
+#   # whenUnsatisfiable: DoNotSchedule
+#   # topologyKey: "topology.kubernetes.io/zone"
+#   # minDomains: 0
+#   # nodeAffinityPolicy: Honor
+#   # nodeTaintsPolicy: Honor
+
 affinity:
   podAntiAffinity:
     preferredDuringSchedulingIgnoredDuringExecution:
