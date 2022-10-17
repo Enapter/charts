@@ -245,7 +245,7 @@ spec:
         {{- range .Values.topologySpreadConstraints }}
         - labelSelector:
             matchLabels:
-              {{- include "keydb.selectorLabels" $ | nindent 10 }}
+              {{- include "keydb.selectorLabels" $ | nindent 14 }}
           topologyKey: {{ default "topology.kubernetes.io/zone" .topologyKey }}
           maxSkew: {{ .maxSkew }}
           {{- if .minDomains }}
