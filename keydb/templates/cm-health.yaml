@@ -10,15 +10,17 @@ data:
 
     set -e
 
+    loading_response="LOADING KeyDB is loading the dataset in memory"
+
     [[ -n "${REDIS_PASSWORD}" ]] && export REDISCLI_AUTH="${REDIS_PASSWORD}"
     response="$(
       timeout -s 3 "${1}" \
       keydb-cli \
         -h localhost \
         -p "${REDIS_PORT}" \
-        ping
+        GET {{ uuidv4 }} # Some random UUID which represents non-existent key
     )"
-    if [ "${response}" != "PONG" ]; then
+    if [ "${response}" = "${loading_response}" ]; then
       echo "${response}"
       exit 1
     fi
@@ -34,9 +36,9 @@ data:
       keydb-cli \
         -h localhost \
         -p "${REDIS_PORT}" \
-        ping
+        PING
     )"
-    if [ "${response}" != "PONG" ] && [[ ! "${response}" =~ ^.*LOADING.*$ ]]; then
+    if [ "${response}" != "PONG" ]; then
       echo "${response}"
       exit 1
     fi
