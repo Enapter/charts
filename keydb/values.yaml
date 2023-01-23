@@ -231,19 +231,19 @@ exporter:
   livenessProbe:
     httpGet:
       path: /health
-      port: 9121
+      port: redis-exporter
 
   # Readiness Probe
   readinessProbe:
     httpGet:
       path: /health
-      port: 9121
+      port: redis-exporter
 
   # Startup Probe
   startupProbe:
     httpGet:
       path: /health
-      port: 9121
+      port: redis-exporter
     failureThreshold: 24
     periodSeconds: 5
 
