@@ -18,7 +18,7 @@ data:
       keydb-cli \
         -h localhost \
         -p "${REDIS_PORT}" \
-        GET {{ uuidv4 }} # Some random UUID which represents non-existent key
+        GET {{ .Values.readinessProbeRandomUuid }}
     )"
     if [ "${response}" = "${loading_response}" ]; then
       echo "${response}"

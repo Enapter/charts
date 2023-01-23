@@ -121,6 +121,9 @@ readinessProbe:
   successThreshold: 1
   failureThreshold: 5
 
+# Random UUID for readiness GET probe
+readinessProbeRandomUuid: "90f717dd-0e68-43b8-9363-fddaad00d6c9"
+
 # Startup Probe
 startupProbe:
   enabled: true

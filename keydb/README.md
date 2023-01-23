@@ -121,6 +121,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `extraVolumes`                  | Additional volumes for init and sidecar containers | `[]`                                      |
 | `livenessProbe.custom`          | Custom LivenessProbe for KeyDB pods                | `{}`                                      |
 | `readinessProbe.custom`         | Custom ReadinessProbe for KeyDB pods               | `{}`                                      |
+| `readinessProbeRandomUuid`      | Random UUIDv4 for readiness GET probe              | `90f717dd-0e68-43b8-9363-fddaad00d6c9`    |
 | `startupProbe.custom`           | Custom StartupProbe for KeyDB pods                 | `{}`                                      |
 | `persistentVolume.enabled`      | Should PVC be created via volumeClaimTemplates     | `true`                                    |
 | `persistentVolume.accessModes`  | Volume access modes                                | `[ReadWriteOnce]`                         |
