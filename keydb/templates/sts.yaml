@@ -188,6 +188,7 @@ spec:
         ports:
         - name: redis-exporter
           containerPort: {{ .Values.exporter.port }}
+          protocol: TCP
       {{- end }}
       {{- if .Values.scripts.enabled }}
       - name: scripts
