@@ -95,7 +95,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | Parameter                       | Description                                        | Default                                   |
 |:--------------------------------|:---------------------------------------------------|:------------------------------------------|
 | `imageRepository`               | KeyDB docker image                                 | `eqalpha/keydb`                           |
-| `imageTag`                      | KeyDB docker image tag                             | `x86_64_v6.3.1`                           |
+| `imageTag`                      | KeyDB docker image tag                             | `x86_64_v6.3.2`                           |
 | `imagePullPolicy`               | K8s imagePullPolicy                                | `IfNotPresent`                            |
 | `imagePullSecrets`              | KeyDB Pod imagePullSecrets                         | `[]`                                      |
 | `nodes`                         | Number of KeyDB master pods                        | `3`                                       |
@@ -151,7 +151,7 @@ The following table lists the configurable parameters of the KeyDB chart and the
 | `serviceMonitor.scrapeTimeout`  | ServiceMonitor scrape timeout                      | `nil`                                     |
 | `exporter.enabled`              | Prometheus Exporter sidecar contaner               | `false`                                   |
 | `exporter.imageRepository`      | Exporter Image                                     | `oliver006/redis_exporter`                |
-| `exporter.imageTag`             | Exporter Image Tag                                 | `v1.43.1-alpine`                          |
+| `exporter.imageTag`             | Exporter Image Tag                                 | `v1.45.0-alpine`                          |
 | `exporter.pullPolicy`           | Exporter imagePullPolicy                           | `IfNotPresent`                            |
 | `exporter.port`                 | `prometheus.io/port`                               | `9121`                                    |
 | `exporter.portName`             | Exporter service port name in the Service spec     | `redis-exporter`                          |
