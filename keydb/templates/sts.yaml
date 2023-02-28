@@ -156,7 +156,7 @@ spec:
         {{- end }}
         env:
         - name: REDIS_ADDR
-          value: redis://localhost:6379
+          value: redis://localhost:{{ .Values.port | int }}
         - name: REDIS_PORT
           value: {{ .Values.port | quote }}
         {{- if .Values.existingSecret }}
