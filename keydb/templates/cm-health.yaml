@@ -14,7 +14,7 @@ data:
 
     [[ -n "${REDIS_PASSWORD}" ]] && export REDISCLI_AUTH="${REDIS_PASSWORD}"
     response="$(
-      timeout -s 3 "${1}" \
+      timeout -s 15 "${1}" \
       keydb-cli \
         -h localhost \
         -p "${REDIS_PORT}" \
@@ -32,7 +32,7 @@ data:
 
     [[ -n "${REDIS_PASSWORD}" ]] && export REDISCLI_AUTH="${REDIS_PASSWORD}"
     response="$(
-      timeout -s 3 "${1}" \
+      timeout -s 15 "${1}" \
       keydb-cli \
         -h localhost \
         -p "${REDIS_PORT}" \
