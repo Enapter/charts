@@ -14,7 +14,7 @@ spec:
   - name: {{ .Values.portName | quote }}
     port: {{ .Values.port | int }}
     protocol: TCP
-    targetPort: keydb
+    targetPort: {{ .Values.internalPortName | quote }}
     {{- if .Values.service.appProtocol.enabled }}
     appProtocol: redis
     {{- end }}

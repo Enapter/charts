@@ -47,7 +47,7 @@ spec:
         - /utils/server.sh
         env:
         - name: REDIS_PORT
-          value: {{ .Values.port | quote }}
+          value: {{ .Values.internalPort | quote }}
         {{- if .Values.existingSecret }}
         - name: REDIS_PASSWORD
           valueFrom:
@@ -59,8 +59,8 @@ spec:
           value: "{{ .Values.password }}"
         {{- end }}
         ports:
-        - name: keydb
-          containerPort: {{ .Values.port | int }}
+        - name: {{ .Values.internalPortName }}
+          containerPort: {{ .Values.internalPort | int }}
           protocol: TCP
         {{- if .Values.livenessProbe.enabled }}
         livenessProbe:
@@ -155,10 +155,12 @@ spec:
         {{- end }}
         {{- end }}
         env:
+        - name: REDIS_EXPORTER_WEB_LISTEN_ADDRESS
+          value: "0.0.0.0:{{ .Values.exporter.port }}"
+        - name: REDIS_EXPORTER_WEB_TELEMETRY_PATH
+          value: {{ .Values.exporter.scrapePath | quote }}
         - name: REDIS_ADDR
-          value: redis://localhost:6379
-        - name: REDIS_PORT
-          value: {{ .Values.port | quote }}
+          value: "redis://localhost:{{ .Values.internalPort }}"
         {{- if .Values.existingSecret }}
         - name: REDIS_PASSWORD
           valueFrom:
@@ -186,7 +188,7 @@ spec:
         securityContext:
           {{- toYaml .Values.exporter.securityContext | nindent 10 }}
         ports:
-        - name: redis-exporter
+        - name: {{ .Values.exporter.portName | quote }}
           containerPort: {{ .Values.exporter.port }}
           protocol: TCP
       {{- end }}
@@ -202,7 +204,7 @@ spec:
         - /health/scripts_local.sh
         env:
         - name: REDIS_PORT
-          value: {{ .Values.port | quote }}
+          value: {{ .Values.internalPort | quote }}
         {{- if .Values.existingSecret }}
         - name: REDIS_PASSWORD
           valueFrom:

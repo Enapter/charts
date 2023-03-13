@@ -13,6 +13,8 @@ existingSecret: ""
 existingSecretPasswordKey: "password"
 port: 6379
 portName: server
+internalPort: 6379
+internalPortName: keydb
 
 threads: 2
 
