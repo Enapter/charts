@@ -275,7 +275,7 @@ spec:
             path: server.sh
       {{- if not .Values.persistentVolume.enabled }}
       - name: keydb-data
-        emptyDir: {}
+        emptyDir: {{- toYaml .Values.persistentVolume.emptyDir | nindent 10 }}
       {{- end }}
       {{- if .Values.extraVolumes }}
       {{- toYaml .Values.extraVolumes | nindent 6 }}

@@ -162,6 +162,9 @@ persistentVolume:
   ##
   # storageClass: "-"
 
+  # If persistentVolume is disable, use this to configure the empty dir
+  emptyDir: {}
+
 resources: {}
 
 # Please read https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/#enabling-unsafe-sysctls
