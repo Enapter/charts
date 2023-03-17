@@ -18,7 +18,11 @@ data:
       keydb-cli \
         -h localhost \
         -p "${REDIS_PORT}" \
+{{- if eq .Values.activeReplicas "yes" }}
+        SET {{ .Values.readinessProbeRandomUuid }} {{ .Values.readinessProbeRandomUuid }}
+{{- else }}
         GET {{ .Values.readinessProbeRandomUuid }}
+{{- end }}
     )"
     if [ "${response}" = "${loading_response}" ]; then
       echo "${response}"
