@@ -97,6 +97,11 @@ extraVolumes: []
 #  - name: empty-dir-volume
 #    emptyDir: {}
 
+# Mount points for the declared extraVolumes
+extraVolumeMounts: []
+#  - name: empty-dir-volume
+#    mountPath: /tmp
+
 # Liveness Probe
 livenessProbe:
   enabled: true

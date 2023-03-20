@@ -130,6 +130,9 @@ spec:
         - name: utils
           mountPath: /utils
           readOnly: true
+        {{- if .Values.extraVolumeMounts }}
+        {{- toYaml .Values.extraVolumeMounts | nindent 8 }}
+        {{- end }}
       {{- if .Values.exporter.enabled }}
       - name: redis-exporter
         {{- if .Values.exporter.image }}
