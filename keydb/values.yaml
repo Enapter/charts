@@ -97,6 +97,11 @@ extraVolumes: []
 #  - name: empty-dir-volume
 #    emptyDir: {}
 
+# Extra volume mounts to the keydb container
+extraKeydbVolumeMounts: []
+  # - name: volume-from-secret
+  #   mountPath: /mysecret
+
 # Liveness Probe
 livenessProbe:
   enabled: true
