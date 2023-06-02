@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  release:
+    types:
+    - published
+
+jobs:
+  release-helm-chart:
+    runs-on:
+    - self-hosted
+    - kaas
+
+    timeout-minutes: 5
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        check-latest: true
+
+    - uses: azure/setup-helm@v3
+    - uses: helm/chart-testing-action@v2.4.0
+
+    - name: Lint chart
+      run: ct lint --chart-dirs keydb --charts keydb
+
+    - name: Create kind cluster
+      uses: helm/kind-action@v1.4.0
+
+    - name: Install chart
+      run: ct install --chart-dirs keydb --charts keydb
+
+    - name: Package chart
+      run: helm package ./keydb/ --destination ./.deploy/ --version ${{github.ref_name}}
+
+    - name: Run chart-releaser
+      uses: helm/chart-releaser-action@v1.5.0
+      with:
+        skip_packaging: true
+      env:
+        CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        CR_PACKAGE_PATH: .deploy
+
+    - name: Notify failure
+      if: failure()
+      env:
+        MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+        MATTERMOST_TEXT: "${{ github.repository }} PR build. Please check [here](${{ github.event.pull_request.html_url }}/checks)."
+      run: |
+        send-to-mattermost
