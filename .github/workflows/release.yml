@@ -7,6 +7,8 @@ on:
 
 jobs:
   release-helm-chart:
+    permissions:
+      contents: write
     runs-on:
     - self-hosted
     - kaas
