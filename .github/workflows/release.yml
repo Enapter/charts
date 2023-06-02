@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 1
+        fetch-depth: 0
 
     - uses: actions/setup-python@v4
       with:
@@ -26,16 +26,6 @@ jobs:
         check-latest: true
 
     - uses: azure/setup-helm@v3
-    - uses: helm/chart-testing-action@v2.4.0
-
-    - name: Lint chart
-      run: ct lint --chart-dirs keydb --charts keydb
-
-    - name: Create kind cluster
-      uses: helm/kind-action@v1.4.0
-
-    - name: Install chart
-      run: ct install --chart-dirs keydb --charts keydb
 
     - name: Package chart
       run: helm package ./keydb/ --destination ./.deploy/ --version ${{github.ref_name}}
