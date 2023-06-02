@@ -20,6 +20,11 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Configure Git
+      run: |
+        git config user.name "$GITHUB_ACTOR"
+        git config user.email "$GITHUB_ACTOR@elisa.fi"
+
     - uses: actions/setup-python@v4
       with:
         python-version: '3.11'
